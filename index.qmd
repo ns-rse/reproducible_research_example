@@ -1,10 +1,10 @@
 ---
-title: "Template Revealjs Quarto site"
+title: "Reproducible Research in Practice"
 # format: revealjs
 author:
-  - name: Your Name
-    orcid: 0000-0000-0000-0000
-    email: email@address.work
+  - name: Neil Shephard
+    orcid: 0000-0001-8301-6857
+    email: n.shephard@sheffield.ac.uk
     affiliations: Employers Name
 from: markdown+emoji
 format:
@@ -16,10 +16,10 @@ format:
     chalkboard: true
     # embed-resources: true
     # standalone: true
-    header: Quarto RevealJS Template
+    header: Reproducible Research in Practice
 revealjs-plugins:
   - confetti
-footer: "**Slides** : [**github-username.github.io/<repository>**](https://github-username.github.io/<repository>)"
+footer: "**Slides** : [**ns-rse.github.io/reproducible_research_example**](https://ns-rse.github.io/reproducible_research_example)"
 project:
   preview:
     port: 7864
@@ -32,17 +32,158 @@ filters:
 
 ## Scan This
 
-{{< qrcode <https://ns-rse.github.io/quarto-revealjs-template> qr1 width=400 height=400 >}}
+{{< qrcode <https://ns-rse.github.io/reproducible_research_example> qr1 width=400 height=400 >}}
 
-[ns-rse.github.io/quarto-revealjs-template](https://ns-rse.github.io/quarto-revealjs-template)
+[ns-rse.github.io/reproducible_research_example](https://ns-rse.github.io/reproducible_research_example)
 
-## Quarto RevealJS Slides
+## Who Am I/What Do I Do?
 
-This is a [Quarto](https://quarto.org/) template for creating [RevealJS](https://revealjs.com/) slides.
+:::: {.columns}
 
-The template can be used as a starting point for your own slides and includes a number of different layouts and examples
-of Markdown syntax, slide layout, links, embedding images and configuration options.
+::: {.column width="50%"}
 
++ Background in evolutionary and statistical genetics.
++ Genetic Statistician
++ Medical Statistician
++ Data Scientist
++ :tada: [Research Software Engineer](https://rse.shef.ac.uk) :tada:
+
+:::
+
+::: {.column width="50%"}
+
++ Linux, R, Python, Bash
++ Literate Programming
++ Reproducible Research
++ Open Research
++ Free Open Source Software
+
+:::
+::::
+
+::: {.notes}
+Before we get into the details I thought it might be useful to explain who am I am and why I'm here to talk to you
+today.
+
+I started my academic career studying Zoology and Genetics at Undergraduate then moved onto a Masters in Genetic
+Epidemiology, both here at the University of Sheffield quite a few years ago.  After graduating I spent about eight or
+nine years as a Genetic Statistician trying to work out what genes are involved in complex diseases at various
+Universities, Manchester, Western Australia and then returning to Sheffield. I then shifted careers to work as a Medical
+Statistician for about nine years followed by four years in industry as a Data Scientist where I didn't actually do much
+data science but did learn a lot about software development which is how I've ended up back at the Unviversity of
+Sheffield as a Research Software Engineer.
+
+A common theme from my Masters on-wards is that I have used computers to write programmes and analyse data. I've taught
+myself Linux system administration and from a rudimentary training on Fortran, C and Stata have gone on to learn Bash, R
+and Python as well as a few other bits and pieces.
+
+Very early on in my career I developed an interest in literate programming and reproducible research which is why Aneta
+has invited me her today to talk to you and I'll expand on these topics and show you some work I'm currently engaged in
+and how I undertake it in a reproducible manner.
+
+Reproducible Research is one of the foundational aspects of Open Research as by ensuring our work is reproducible and
+open to review it improves confidence in its accuracy and reliability.
+:::
+
+
+## Reproducible Research
+
++ Reproducibility is fundamental to the scientific method.
++ Traditionally hand-written notebooks with methods shared in publications.
++ Modern equivalent is code...
+  + Software
+  + Statistical scripts
+    + Data cleaning
+    + Analysis, graphs & tables
+
+
+## Literate Programming - Origins
+
+:::: {.columns}
+::: {.column width="50%"}
+> a computer program is given as an explanation of how it works in a natural language, such as English, interspersed
+(embedded) with snippets of macros and traditional source code, from which compilable source code can be
+generated.^[[Wikipedia - Literate programming](https://en.wikipedia.org/wiki/Literate_programming)]
+:::
+::: {.column width="50%"}
+![[_Literate Programming_ - Donald Knuth](https://en.wikipedia.org/wiki/Literate_programming)](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
+:::
+::::
+
+::: {.notes}
+RMarkdown and other languages like it such as the newer [Quarto](https://quarto.org) and Emacs'
+[Org-mode](https://orgmode.org) are literate programming languages which may be an unfamiliar term so I've borrowed the
+definition from Wikipedia.
+
+The idea was originally proposed and developed the computer scientist Donald Knuth, and he literally wrote the book on it.
+:::
+
+## Literate Programming - Better Programmes
+
+:::: {.columns}
+::: {.column width="50%"}
+> My programs are not only explained better than ever before; they also are better programs, because the new methodology
+encourages me to do a better job.^[[Knuth (1984)](http://www.literateprogramming.com/knuthweb.pdf)]
+:::
+::: {.column width="50%"}
+![[_Literate Programming_ - Donald Knuth](https://en.wikipedia.org/wiki/Literate_programming)](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
+:::
+::::
+
+::: {.notes}
+Whilst originating in computer science the principle has seen wide spread adoption in research and data science because
+it encourages reproducible research and facilitates open access to research.
+
+As Knuth found when he adopted the practice it _improved_ the quality of the programmes he wrote and I've found the same
+is true when writing documents myself since adopting the practice over 20 years ago.
+:::
+
+## What's Involved?
+
++ Logical, ordered directory structure.
++ Scripts/code.
++ Version control of code.
++ Reproducible environment (R packages using [renv](https://rstudio.github.io/renv/articles/renv.html)).
+
+::: {.notes}
+It can seem overwhelming learning a new paradigm or framework for undertaking work and I've often find that people want
+to get on and do the work rather than take a step back and assess how they are going about it but its well worth taking
+the time out to review and assess your working practices and see how they can be improved.
+
+I'm going to walk you through a project that I've been working on that is looking to improve the prediction of Thyroid
+Cancer. Its not my own work, its the topic for a PhD for a clinicial Dr Ovie Edafe who is a specialist in neck cancers
+and related surgery.
+
+There are four broad areas that I'll cover that hopefully align with the content you have already covered and will be
+covering in the coming weeks.
+
+The first step is having an organised structure to your directories having data organised in a consistent and structured
+manner makes it considerably easier to work with.
+
+You then need to write code or scripts, which are still code, that defines the steps you undertake in cleaning and
+tidying your data and getting it ready for analysis before another series of scripts are used to run the analysis.
+
+All of the code that is written should be version controlled which allos you to track the history of the code and see
+what changes have been made over time. If a mistake is made it is possible to revert back to a previous state where
+things did work. Version control and tools such as Git and GitHub make it much easier to collaborate with others on
+research too.
+
+One final step is having a reproducible environment under which your work is undertaken. This means the specific
+versions of packages that you have used for analysis should be recorded and used again in the future. In R this can be
+done via the [`renv`]() package. Its not without problems but the situation today is far better than it used to be.
+:::
+
+
+## Thyroid Cancer Prediction
+
+Two repositories on GitHub
+
++ [ns-rse/thyroid-cancer-prediction](https://github.com/ns-rse/thyroid-cancer-prediction) - repository I started to show
+  colleague how to use Git and R.
++ [mdp21oe/multicenter-thyroid](https://github.com/mdp21oe/multicentre_thyroid) - repository by Ovie to re-write his
+  paper in Quarto Markdown.
+
+<!--
 ## Formatting
 
 Quarto slides are written in [Markdown](https://quarto.org/docs/authoring/markdown-basics.html).
@@ -59,109 +200,6 @@ Quarto slides are written in [Markdown](https://quarto.org/docs/authoring/markdo
 Speaker Notes can be added to each slide. **Formatting** can be used here too.
 :::
 
-## Columns and Lists
-
-Slides can have columns and you can create [lists](https://quarto.org/docs/authoring/markdown-basics.html#lists) of
-different types.
-
-:::: {.columns}
-
-::: {.column width="50%"}
-**ToDo** (code)
-
-```markdown
-+ Learn Markdown
-+ Create Quarto Slides
-+ Publish on GitHub
-```
-
-:::
-
-::: {.column width="50%"}
-**ToDo** (Rendered)
-
-+ Learn Markdown
-+ Create Quarto Slides
-+ Publish on GitHub
-
-:::
-::::
-
-::: {.notes}
-Slides can have columns and we can create unordered lists.
-:::
-
-## Columns and Lists (cont.)
-
-:::: {.columns}
-
-::: {.column width="50%"}
-**Ordered** (code)
-
-```markdown
-1. A comes before
-2. B which is followed by
-3. C
-```
-
-:::
-
-::: {.column width="50%"}
-**Ordered** (Rendered)
-
-1. A comes before
-2. B which is followed by
-3. C
-
-:::
-::::
-
-::: {.notes}
-Or ordered lists.
-:::
-
-## Tables
-
-You can manually add [tables](https://quarto.org/docs/authoring/markdown-basics.html#tables).
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-```markdown
-| Right | Left | Default | Center |
-|------:|:-----|---------|:------:|
-|   12  |  12  |    12   |    12  |
-|  123  |  123 |   123   |   123  |
-|    1  |    1 |     1   |     1  |
-```
-
-:::
-::: {.column width="50%"}
-
-| Right | Left | Default | Center |
-|------:|:-----|---------|:------:|
-|   12  |  12  |    12   |    12  |
-|  123  |  123 |   123   |   123  |
-|    1  |    1 |     1   |     1  |
-
-:::
-::::
-
-::: {.notes}
-Tables can be added, but there is a better way to include these programatically
-:::
-
-## Equations
-
-| Markdown Syntax                    | Output                       |
-|:----------------------------------:|:-----------------------------|
-| `inline math $E = mc^{2}$`         | inline math $E = mc^{2}$     |
-| ```display math: $$E = mc^{2}$$``` | display math: $$E = mc^{2}$$ |
-
-::: {.notes}
-You can write equations if you need to.
-:::
 
 ## Embed Images
 
@@ -336,3 +374,5 @@ This Template...
 {{< qrcode <https://ns-rse.github.io/quarto-revealjs-template> qr2 width=400 height=400 >}}
 :::
 ::::
+
+-->
