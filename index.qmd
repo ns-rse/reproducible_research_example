@@ -1,0 +1,378 @@
+---
+title: "Reproducible Research in Practice"
+# format: revealjs
+author:
+  - name: Neil Shephard
+    orcid: 0000-0001-8301-6857
+    email: n.shephard@sheffield.ac.uk
+    affiliations: Employers Name
+from: markdown+emoji
+format:
+  clean-revealjs:
+    incremental: false
+    slide-number: true
+    show-slide-number: speaker
+    auto-stretch: false
+    chalkboard: true
+    # embed-resources: true
+    # standalone: true
+    header: Reproducible Research in Practice
+revealjs-plugins:
+  - confetti
+footer: "**Slides** : [**ns-rse.github.io/reproducible_research_example**](https://ns-rse.github.io/reproducible_research_example)"
+project:
+  preview:
+    port: 7864
+    host: localhost
+    watch-inputs: true
+filters:
+  - openlinksinnewpage
+  - reveal-header
+---
+
+## Scan This
+
+{{< qrcode <https://ns-rse.github.io/reproducible_research_example> qr1 width=400 height=400 >}}
+
+[ns-rse.github.io/reproducible_research_example](https://ns-rse.github.io/reproducible_research_example)
+
+## Who Am I/What Do I Do?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
++ Background in evolutionary and statistical genetics.
++ Genetic Statistician
++ Medical Statistician
++ Data Scientist
++ :tada: [Research Software Engineer](https://rse.shef.ac.uk) :tada:
+
+:::
+
+::: {.column width="50%"}
+
++ Linux, R, Python, Bash
++ Literate Programming
++ Reproducible Research
++ Open Research
++ Free Open Source Software
+
+:::
+::::
+
+::: {.notes}
+Before we get into the details I thought it might be useful to explain who am I am and why I'm here to talk to you
+today.
+
+I started my academic career studying Zoology and Genetics at Undergraduate then moved onto a Masters in Genetic
+Epidemiology, both here at the University of Sheffield quite a few years ago.  After graduating I spent about eight or
+nine years as a Genetic Statistician trying to work out what genes are involved in complex diseases at various
+Universities, Manchester, Western Australia and then returning to Sheffield. I then shifted careers to work as a Medical
+Statistician for about nine years followed by four years in industry as a Data Scientist where I didn't actually do much
+data science but did learn a lot about software development which is how I've ended up back at the Unviversity of
+Sheffield as a Research Software Engineer.
+
+A common theme from my Masters on-wards is that I have used computers to write programmes and analyse data. I've taught
+myself Linux system administration and from a rudimentary training on Fortran, C and Stata have gone on to learn Bash, R
+and Python as well as a few other bits and pieces.
+
+Very early on in my career I developed an interest in literate programming and reproducible research which is why Aneta
+has invited me her today to talk to you and I'll expand on these topics and show you some work I'm currently engaged in
+and how I undertake it in a reproducible manner.
+
+Reproducible Research is one of the foundational aspects of Open Research as by ensuring our work is reproducible and
+open to review it improves confidence in its accuracy and reliability.
+:::
+
+
+## Reproducible Research
+
++ Reproducibility is fundamental to the scientific method.
++ Traditionally hand-written notebooks with methods shared in publications.
++ Modern equivalent is code...
+  + Software
+  + Statistical scripts
+    + Data cleaning
+    + Analysis, graphs & tables
+
+
+## Literate Programming - Origins
+
+:::: {.columns}
+::: {.column width="50%"}
+> a computer program is given as an explanation of how it works in a natural language, such as English, interspersed
+(embedded) with snippets of macros and traditional source code, from which compilable source code can be
+generated.^[[Wikipedia - Literate programming](https://en.wikipedia.org/wiki/Literate_programming)]
+:::
+::: {.column width="50%"}
+![[_Literate Programming_ - Donald Knuth](https://en.wikipedia.org/wiki/Literate_programming)](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
+:::
+::::
+
+::: {.notes}
+RMarkdown and other languages like it such as the newer [Quarto](https://quarto.org) and Emacs'
+[Org-mode](https://orgmode.org) are literate programming languages which may be an unfamiliar term so I've borrowed the
+definition from Wikipedia.
+
+The idea was originally proposed and developed the computer scientist Donald Knuth, and he literally wrote the book on it.
+:::
+
+## Literate Programming - Better Programmes
+
+:::: {.columns}
+::: {.column width="50%"}
+> My programs are not only explained better than ever before; they also are better programs, because the new methodology
+encourages me to do a better job.^[[Knuth (1984)](http://www.literateprogramming.com/knuthweb.pdf)]
+:::
+::: {.column width="50%"}
+![[_Literate Programming_ - Donald Knuth](https://en.wikipedia.org/wiki/Literate_programming)](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
+:::
+::::
+
+::: {.notes}
+Whilst originating in computer science the principle has seen wide spread adoption in research and data science because
+it encourages reproducible research and facilitates open access to research.
+
+As Knuth found when he adopted the practice it _improved_ the quality of the programmes he wrote and I've found the same
+is true when writing documents myself since adopting the practice over 20 years ago.
+:::
+
+## What's Involved?
+
++ Logical, ordered directory structure.
++ Scripts/code.
++ Version control of code.
++ Reproducible environment (R packages using [renv](https://rstudio.github.io/renv/articles/renv.html)).
+
+::: {.notes}
+It can seem overwhelming learning a new paradigm or framework for undertaking work and I've often find that people want
+to get on and do the work rather than take a step back and assess how they are going about it but its well worth taking
+the time out to review and assess your working practices and see how they can be improved.
+
+I'm going to walk you through a project that I've been working on that is looking to improve the prediction of Thyroid
+Cancer. Its not my own work, its the topic for a PhD for a clinicial Dr Ovie Edafe who is a specialist in neck cancers
+and related surgery.
+
+There are four broad areas that I'll cover that hopefully align with the content you have already covered and will be
+covering in the coming weeks.
+
+The first step is having an organised structure to your directories having data organised in a consistent and structured
+manner makes it considerably easier to work with.
+
+You then need to write code or scripts, which are still code, that defines the steps you undertake in cleaning and
+tidying your data and getting it ready for analysis before another series of scripts are used to run the analysis.
+
+All of the code that is written should be version controlled which allos you to track the history of the code and see
+what changes have been made over time. If a mistake is made it is possible to revert back to a previous state where
+things did work. Version control and tools such as Git and GitHub make it much easier to collaborate with others on
+research too.
+
+One final step is having a reproducible environment under which your work is undertaken. This means the specific
+versions of packages that you have used for analysis should be recorded and used again in the future. In R this can be
+done via the [`renv`]() package. Its not without problems but the situation today is far better than it used to be.
+:::
+
+
+## Thyroid Cancer Prediction
+
+Two repositories on GitHub
+
++ [ns-rse/thyroid-cancer-prediction](https://github.com/ns-rse/thyroid-cancer-prediction) - repository I started to show
+  colleague how to use Git and R.
++ [mdp21oe/multicenter-thyroid](https://github.com/mdp21oe/multicentre_thyroid) - repository by Ovie to re-write his
+  paper in Quarto Markdown.
+
+<!--
+## Formatting
+
+Quarto slides are written in [Markdown](https://quarto.org/docs/authoring/markdown-basics.html).
+
+| Markdown Syntax                              | Output                                |
+|:---------------------------------------------|:--------------------------------------|
+| `*italics*`, `**bold**`, `***bolditalics***` | *italics*, **bold**, **bold italics** |
+| `superscript^1^`, `subscript~2~`             | superscript^1^, subscript~2~          |
+| `~~strikethrough~~`                          | ~~strikethrough~~                     |
+| ```code```                                   | `code`                                |
+| `[Quarto](https://quarto.org)`               | [Quarto](https://quarto.org)          |
+
+::: {.notes}
+Speaker Notes can be added to each slide. **Formatting** can be used here too.
+:::
+
+
+## Embed Images
+
+[Figures](https://quarto.org/docs/authoring/figures.html) can be embeded using a URL and resized.
+
+```markdown
+![Relaxing in the Julian Alps](https://live.staticflickr.com/65535/53144704609_c5e6fa8c77_k.jpg){width=700}
+```
+
+![Relaxing in the Julian Alps](https://live.staticflickr.com/65535/53144704609_c5e6fa8c77_k.jpg){width=700}
+
+::: {.notes}
+:::
+
+## Embed Images (*cont.*)
+
+You can also include images locally.^[Make sure to `git add` them otherwise they won't publish] and make them hyperlinks.
+
+```markdown
+![[OSC Sheffield](https://osc-international.com/osc-sheffield)](img/OSC_Sheffield.png){width=300}
+```
+
+![[OSC Sheffield](https://osc-international.com/osc-sheffield)](img/OSC_Sheffield.png){width=300}
+
+::: {.notes}
+:::
+
+## R code
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Include [R code and output](https://quarto.org/docs/computations/r.html) with automatic referencing (see @fig-airquality2)
+
+```{r}
+#| label: fig-airquality
+#| fig-cap: "Temperature and ozone level."
+#| warning: false
+#| eval: false
+#| echo: true
+library(ggplot2)
+
+ggplot(airquality, aes(Temp, Ozone)) +
+  geom_point() +
+  geom_smooth(method = "loess")
+```
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| label: fig-airquality2
+#| fig-cap: "Temperature and ozone level."
+#| warning: false
+
+library(ggplot2)
+
+ggplot(airquality, aes(Temp, Ozone)) +
+  geom_point() +
+  geom_smooth(method = "loess")
+```
+
+:::
+
+::::
+
+::: {.notes}
+[R](https://www.r-project.org/) code can be embeded and executed to produce tables and figures.
+:::
+
+## Python code
+
+::: {.column width="50%"}
+Include [Python code and output](https://quarto.org/docs/computations/python.html) too
+
+```{.python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis."
+#| warning: false
+#| eval: false
+#| echo: true
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'}
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+:::
+::: {.column width="50%"}
+
+```{.python}
+#| label: fig-polar2
+#| fig-cap: "A line plot on a polar axis."
+#| warning: false
+#| eval: true
+#| echo: true
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'}
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+:::
+::::
+
+::: {.notes}
+You can include [Python](https://www.python.org) code too
+:::
+
+## General code
+
+There are lots of options for showing, hiding, highlighting [code
+blocks](https://quarto.org/docs/presentations/revealjs/#code-blocks).
+
+```{.python code-line-numbers="6-8"}
+#| eval: true
+#| echo: true
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+## The Documentation is Good
+
+The official documentation is really good.
+
++ [Get Started](https://quarto.org/docs/get-started/)
++ [Markdown Basics](https://quarto.org/docs/authoring/markdown-basics.html)
++ [Guide](https://quarto.org/docs/guide/) with many sections on [Presentations](https://quarto.org/docs/presentations/)
+  [Website](https://quarto.org/docs/websites/), [Books](https://quarto.org/docs/books/) and more.
+
+## Extensions
+
+:::: {.columns}
+
+::: {.column width="70%"}
+[Extensions](https://quarto.org/docs/extensions/) for themes and other functionality
+(press `c` whilst viewing these slides :wink: ).
+
++ [Shortcode/Filter](https://quarto.org/docs/extensions/listing-filters.html)
++ [Journal Articles](https://quarto.org/docs/extensions/listing-journals.html)
++ [Custom Formats](https://quarto.org/docs/extensions/listing-formats.html)
++ [**RevealJS**](https://quarto.org/docs/extensions/listing-revealjs.html)
++ [awesome-quarto](https://github.com/mcanouil/awesome-quarto) - Quarto tools & examples
+
+:::
+::: {.column width=30%}
+This Template...
+{{< qrcode <https://ns-rse.github.io/quarto-revealjs-template> qr2 width=400 height=400 >}}
+:::
+::::
+
+-->
