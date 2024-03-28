@@ -70,12 +70,12 @@ Epidemiology, both here at the University of Sheffield quite a few years ago.  A
 nine years as a Genetic Statistician trying to work out what genes are involved in complex diseases at various
 Universities, Manchester, Western Australia and then returning to Sheffield. I then shifted careers to work as a Medical
 Statistician for about nine years followed by four years in industry as a Data Scientist where I didn't actually do much
-data science but did learn a lot about software development which is how I've ended up back at the Unviversity of
+data science but did learn a lot about software development which is how I've ended up back at the University of
 Sheffield as a Research Software Engineer.
 
 A common theme from my Masters on-wards is that I have used computers to write programmes and analyse data. I've taught
 myself Linux system administration and from a rudimentary training on Fortran, C and Stata have gone on to learn Bash, R
-and Python as well as a few other bits and pieces.
+and Python as well as a few other bits and pieces of different languages.
 
 Very early on in my career I developed an interest in literate programming and reproducible research which is why Aneta
 has invited me her today to talk to you and I'll expand on these topics and show you some work I'm currently engaged in
@@ -95,6 +95,7 @@ open to review it improves confidence in its accuracy and reliability.
   + Statistical scripts
     + Data cleaning
     + Analysis, graphs & tables
+    + Numbers and statistics
 
 
 ## Literate Programming - Origins
@@ -111,7 +112,7 @@ generated.^[[Wikipedia - Literate programming](https://en.wikipedia.org/wiki/Lit
 ::::
 
 ::: {.notes}
-RMarkdown and other languages like it such as the newer [Quarto](https://quarto.org) and Emacs'
+RMarkdown and other languages like it such as the newer [Quarto][quarto] and Emacs'
 [Org-mode](https://orgmode.org) are literate programming languages which may be an unfamiliar term so I've borrowed the
 definition from Wikipedia.
 
@@ -131,11 +132,11 @@ encourages me to do a better job.^[[Knuth (1984)](http://www.literateprogramming
 ::::
 
 ::: {.notes}
-Whilst originating in computer science the principle has seen wide spread adoption in research and data science because
+Whilst originating in computer science the principle has seen widespread adoption in research and data science because
 it encourages reproducible research and facilitates open access to research.
 
-As Knuth found when he adopted the practice it _improved_ the quality of the programmes he wrote and I've found the same
-is true when writing documents myself since adopting the practice over 20 years ago.
+Also, as Knuth found when he adopted the practice it _improved_ the quality of the programmes he wrote, and I've found
+the same is true when writing documents myself since adopting the practice over 20 years ago.
 :::
 
 ## What's Involved?
@@ -146,7 +147,7 @@ is true when writing documents myself since adopting the practice over 20 years 
 + Reproducible environment (R packages using [renv](https://rstudio.github.io/renv/articles/renv.html)).
 
 ::: {.notes}
-It can seem overwhelming learning a new paradigm or framework for undertaking work and I've often find that people want
+It can seem overwhelming learning a new paradigm or framework for undertaking work and I've often found that people want
 to get on and do the work rather than take a step back and assess how they are going about it but its well worth taking
 the time out to review and assess your working practices and see how they can be improved.
 
@@ -173,10 +174,324 @@ versions of packages that you have used for analysis should be recorded and used
 done via the [`renv`]() package. Its not without problems but the situation today is far better than it used to be.
 :::
 
+## Directory Structure
 
-## Thyroid Cancer Prediction
++ Important to keep a copy of the raw data as received.
++ Data _always_ needs cleaning.
++ ~80% of data analysis is data cleaning/wrangling data!
++ _Always_ keep a record of changes you make to the data.
++ Separate directories for different data types and script/markdown files.
 
-Two repositories on GitHub
+::: {.notes}
+When undertaking research its imperative to keep a copy of the raw data as received. This might be data from sensors
+that have captured data and if you work with this sort of data then its likely to be fairly well structured, but can
+also be the results of surveys that have been captured and stored in databases and then exported for you to work
+with. Depending on how well the data capture was setup you will almost invariably have to clean your data, in my
+experience about 80% of data analysis is cleaning the data and wrangling it such as deriving variables like age from
+date of birth, and on that note if you ever do want to analyse age as a variable try and capture date of birth as you
+can easily derive the age in years or categorise it into bins, but if you only ask people to say what age band they are
+in you can't go back the other way. Common errors in data cleaning are having string characters in variables that are
+meant to be numeric, or having categorical variables where people haven't entered the correct field and so you have to
+then work out how to tidy this which I'll come on to.
+
+The key thin is that its important to keep a record of the changes you make and these will be in R scripts or
+Markdown/Quarto files. And it therefore makes sense to separate your data from your scripts.
+:::
+
+## Directory Structure - Thyroid Cancer Prediction
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```
+❱ tree -d -L 2
+[4.0K Mar 19 12:36]  .
+├── [4.0K Nov 22 14:57]  ./data
+│   ├── [4.0K Jan  9 13:32]  ./data/csv
+│   └── [4.0K Feb 29 17:27]  ./data/r
+├── [4.0K Mar 14 17:36]  ./docs
+│   ├── [   7 Jan  5 14:45]  ./docs/data -> ../data
+│   ├── [4.0K Feb 29 15:38]  ./docs/modelling_cache
+│   ├── [4.0K Mar 14 17:21]  ./docs/modelling_files
+│   ├── [   4 Jan  5 14:44]  ./docs/r -> ../r
+│   └── [4.0K Mar 14 17:21]  ./docs/_site
+├── [4.0K Oct 19 11:40]  ./inst
+├── [4.0K Nov 16 10:54]  ./log
+├── [4.0K Oct 19 11:24]  ./node_modules
+├── [4.0K Oct 19 12:39]  ./pages
+├── [4.0K Oct 12 10:43]  ./papers
+├── [4.0K Nov  9 11:44]  ./quarto
+│   └── [4.0K Oct 19 13:12]  ./quarto/_site
+├── [4.0K Mar 14 16:59]  ./r
+├── [4.0K Mar 14 17:28]  ./renv
+│   ├── [4.0K Nov 16 10:57]  ./renv/library
+│   └── [4.0K Feb 29 14:28]  ./renv/staging
+├── [4.0K Jan 31 11:00]  ./_site
+│   ├── [4.0K Dec 19 16:36]  ./_site/data_files
+│   ├── [4.0K Feb 15 15:15]  ./_site/docs
+│   ├── [4.0K Dec 19 16:36]  ./_site/modelling_files
+│   └── [4.0K Jan 25 17:22]  ./_site/site_libs
+└── [4.0K Feb  1 17:47]  ./tmp
+
+29 directories
+```
+
+:::
+::: {.column width="50%"}
+
+Key top-level directories
+
++ `data/` - holds data.
+  + `data/csv` - holds ASCII text CSV files.
+  + `data/r` - holds `.RData` files.
++ `docs/` - _my_ Quarto files.
++ `r/` - _my_ R-scripts.
+:::
+::::
+
+
+::: {.notes}
+Here is an example of the directory structure of one of the repositories I have setup for this work.
+
+The output only shows the nesting two directory levels deep but you can see that at the top level I have a number of
+directories, not all of them are relevant, but the key ones are listed on the right, there is the `data/` directory
+which will hold all of the data, there are two sub-directories `csv` for raw CSV files and `r` which holds cleaned data
+in R's byte format which speeds up loading and preserves all the labelling and categorical variables.
+
+The `docs/` directory contains my [Quarto][quarto] source files that I write, both [Quarto][quarto] and [RMarkdown][rmd] will make a
+bunch of other directories when they are rendering your pages which are some of those listed such as `_site` but you
+don't need to worry about those.
+
+The final key directory that I have is `r/` which holds the R scripts that I write.
+:::
+
+
+## Directory Structure - `data/`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```
+❱ tree data
+[4.0K Nov 22 14:57]  data
+├── [4.0K Jan  9 13:32]  data/csv
+│   ├── [ 20K Jan  9 13:31]  data/csv/sheffield_thyroid_nodule.csv
+│   └── [393K Nov  2 11:08]  data/csv/Thy3000_DATA_LABELS_Raw.csv
+└── [4.0K Feb 29 17:27]  data/r
+    ├── [ 30K Mar 14 11:12]  data/r/clean.rds
+    ├── [136K Feb 29 17:56]  data/r/elastic_net.RData
+    ├── [136K Feb 29 17:56]  data/r/lasso.RData
+    ├── [129K Feb 29 17:56]  data/r/rf.RData
+    ├── [137K Feb 29 17:58]  data/r/svm.RData
+    └── [ 14K Feb 29 17:56]  data/r/xgboost.RData
+
+3 directories, 9 files
+```
+
+:::
+::: {.column width="50%"}
+
+Files
+
++ `data/csv/`
+  + `data/csv/sheffield_thyroid_nodule.csv` - Data!
+  + `data/csv/Thy3000_DATA_LABELS_Raw.csv` - Data Dictionary.
++ `data/r/` - .
+  + `data/r/clean.rds` - Clean data set.
+  + `data/r/elastic_net.RData` - Elastic Net model.
+  + `data/r/lasso.RData` - LASSO model.
+  + `data/r/rf.RData` - Random Forest model.
+  + `data/r/svm.RData` - SVM model.
+  + `data/r/xgboost.RData` = XGBoost model
+
+:::
+::::
+
+
+::: {.notes}
+The `data/csv` directory holds the raw data and there are two files the raw data `sheffield_thyroid_nodule.csv` and the
+data dictionary `Thy3000_DATA_LABELS_Raw.csv`.
+
+The `data/r` directory holds the cleaned data in `clean.rds` and the results of fitting various different types of
+models to the data.
+:::
+
+
+## Directory Structure - `data/`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```
+❱ tree data
+[4.0K Nov 22 14:57]  data
+├── [4.0K Jan  9 13:32]  data/csv
+│   ├── [ 20K Jan  9 13:31]  data/csv/sheffield_thyroid_nodule.csv
+│   └── [393K Nov  2 11:08]  data/csv/Thy3000_DATA_LABELS_Raw.csv
+└── [4.0K Feb 29 17:27]  data/r
+    ├── [ 30K Mar 14 11:12]  data/r/clean.rds
+    ├── [136K Feb 29 17:56]  data/r/elastic_net.RData
+    ├── [136K Feb 29 17:56]  data/r/lasso.RData
+    ├── [129K Feb 29 17:56]  data/r/rf.RData
+    ├── [137K Feb 29 17:58]  data/r/svm.RData
+    └── [ 14K Feb 29 17:56]  data/r/xgboost.RData
+
+3 directories, 9 files
+```
+
+:::
+::: {.column width="50%"}
+
+Files
+
++ `data/csv/`
+  + `data/csv/sheffield_thyroid_nodule.csv` - Data!
+  + `data/csv/Thy3000_DATA_LABELS_Raw.csv` - Data Dictionary.
++ `data/r/` - .
+  + `data/r/clean.rds` - Clean data set.
+  + `data/r/elastic_net.RData` - Elastic Net model.
+  + `data/r/lasso.RData` - LASSO model.
+  + `data/r/rf.RData` - Random Forest model.
+  + `data/r/svm.RData` - SVM model.
+  + `data/r/xgboost.RData` = XGBoost model
+
+:::
+::::
+
+
+::: {.notes}
+The `data/csv` directory holds the raw data and there are two files the raw data `sheffield_thyroid_nodule.csv` and the
+data dictionary `Thy3000_DATA_LABELS_Raw.csv`.
+
+The `data/r` directory holds the cleaned data in `clean.rds` and the results of fitting various different types of
+models to the data.
+:::
+
+
+
+## Directory Structure - `docs/`
+
+
+```
+❱ l docs | grep -v "~"
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 17:36:04 2024 .
+drwxr-xr-x neil neil 4.0 KB Thu Mar 28 16:35:45 2024 ..
+.rw-r--r-- neil neil  10 B  Thu Feb 15 15:16:48 2024 .gitignore
+.rw-r--r-- neil neil  12 KB Thu Jan 25 15:35:49 2024 .modelling.qmd
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 17:15:43 2024 .quarto
+.rw-r--r-- neil neil 483 B  Thu Mar 14 16:59:28 2024 _quarto.yml
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 17:21:20 2024 _site
+.rw-r--r-- neil neil 408 B  Thu Mar 14 16:57:10 2024 about.qmd
+.rw-r--r-- neil neil 1.2 KB Thu Mar 14 16:57:10 2024 citations.qmd
+lrwxrwxrwx neil neil   7 B  Fri Jan  5 14:45:10 2024 data ⇒ ../data
+.rw-r--r-- neil neil  33 KB Thu Mar 14 16:57:10 2024 data.qmd
+.rw-r--r-- neil neil 363 B  Thu Mar 14 16:57:10 2024 index.qmd
+.rw-r--r-- neil neil 569 B  Thu Mar 14 16:57:10 2024 links.qmd
+.rw-r--r-- neil neil 2.0 KB Thu Mar 14 16:57:10 2024 literature.qmd
+.rw-r--r-- neil neil  32 KB Thu Mar 14 17:36:04 2024 modelling.qmd
+drwxr-xr-x neil neil 4.0 KB Thu Feb 29 15:38:53 2024 modelling_cache
+.rw-r--r-- neil neil 3.5 KB Thu Mar 14 17:31:46 2024 modelling_elastic_net.qmd
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 17:21:18 2024 modelling_files
+.rw-r--r-- neil neil 5.4 KB Thu Mar 14 17:31:46 2024 modelling_lasso.qmd
+.rw-r--r-- neil neil 3.6 KB Thu Mar 14 17:31:46 2024 modelling_random_forest.qmd
+.rw-r--r-- neil neil 7.0 KB Thu Mar 14 17:31:46 2024 modelling_tidymodel.qmd
+lrwxrwxrwx neil neil   4 B  Fri Jan  5 14:44:09 2024 r ⇒ ../r
+.rw-r--r-- neil neil  18 KB Thu Mar 14 16:57:10 2024 references.bib
+.rw-r--r-- neil neil 2.7 KB Thu Mar 14 16:57:10 2024 reproducibility.qmd
+.rw-r--r-- neil neil  17 B  Thu Mar 14 16:59:28 2024 styles.css
+```
+
+
+::: {.notes}
+The `docs/` directory holds my [Quarto][quarto] files which all end in `.qmd`. I don't like having large files to
+navigate so split my code and papers into a number of smaller files that do specific things and include these from the
+master document which is `index.qmd`. There is a `references.bib` file which contains citations so we can include
+citations easily. The `_quarto.yml`  files is a key file which defines how the Quarto project is setup and rendered but
+I won't cover that in detail here.
+:::
+
+
+## Directory Structure - `r/`
+
+
+```
+❱ l r | grep -v "~"
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 16:59:28 2024 .
+drwxr-xr-x neil neil 4.0 KB Thu Mar 28 16:35:45 2024 ..
+.rw-r--r-- neil neil  28 KB Thu Mar 14 16:56:18 2024 clean.R
+.rw-r--r-- neil neil 684 B  Thu Mar 14 16:59:28 2024 master.R
+.rw-r--r-- neil neil  15 KB Thu Feb 29 14:40:13 2024 modelling.R
+.rw-r--r-- neil neil 2.6 KB Thu Mar 14 16:59:28 2024 simulate_data.R
+.rw-r--r-- neil neil 233 B  Thu Jan 25 17:02:10 2024 summary.R
+.rw-r--r-- neil neil 2.9 KB Thu Mar 14 16:57:10 2024 tidymodel.R
+```
+
+
+::: {.notes}
+The `r/` directory holds my R scripts, the key one is `master.R` which holds the main commands that setup the R
+environment, load libraries and set relative directories. The `clean.R` file does what it says on the tin, it cleans the
+raw data and saves it in R format. There are then scripts for modelling and simulating data.
+
+Now that we've covered how I organise my data we can start looking at some code, but before I move on are there any
+questions about this aspect?
+:::
+
+
+## Scripts/Code - `master.R`
+
+```
+## Filename    : master.R
+## Description : Master file that controls running of all subsequent scripts.
+library(dplyr)
+library(forcats)
+library(Hmisc)
+library(lubridate)
+library(tidymodels)
+library(tidyverse)
+library(vip)
+
+## Set directories based on current location
+base_dir <- getwd()
+data_dir <- paste(base_dir, "data", sep = "/")
+csv_dir <- paste(data_dir, "csv", sep = "/")
+r_dir <- paste(data_dir, "r", sep = "/")
+r_scripts <- paste(base_dir, "r", sep = "/")
+
+## Clean the data
+source(paste(r_scripts, "clean.R", sep = "/"))
+
+
+## Simulate data
+source(paste(r_scripts, "simulate_data.R", sep = "/"))
+
+## Run Statistical models
+source(paste(r_scripts, "tidymodel.R", sep = "/"))
+```
+
+::: {.notes}
+The `master.R` script doesn't do a great deal, it loads libraries and then as the comments show, and its important to
+get into the habit of putting comments in scripts to help other people, including your future self, it then sets the
+working directory. It does this in a reproducible manner by first asking the operating system what the current directory
+is using the `getwd()` command and then appends various directory paths, such as `data` and saving it in the `data_dir`
+variable, this in turn has `csv` appended to it and saved in the `csv_dir` which points to the nested directory where
+our data files live.
+
+You should get in the habit of using relative directories so that the code runs on different computers/systems, if you
+had hard coded the path based on where you store the files on your computer the script won't run on any other computer
+until someone changes that value, relative paths get around that limitation.
+
+After setting directories a number of scripts are called using the `source()` command and within it I just paste the
+name of the script onto the `r_scripts` variable which holds the path to the `r/` directory. The `clean.R` script is
+first called, followed by the `simulate_data.R` and then the `tidymodels.R`.
+
+:::
+
+## Version Control
+
+Two repositories on [GitHub][gh]
 
 + [ns-rse/thyroid-cancer-prediction](https://github.com/ns-rse/thyroid-cancer-prediction) - repository I started to show
   colleague how to use Git and R.
@@ -376,3 +691,8 @@ This Template...
 ::::
 
 -->
+
+[gh]: https://github.com
+[git]: https://git-scm..com
+[quarto]: https://quarto.org
+[rmd]: https://bookdown.org/yihui/rmarkdown/

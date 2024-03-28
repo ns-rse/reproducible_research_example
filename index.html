@@ -12,7 +12,7 @@
 <link href="site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/grid-htext-1.0.0/grid_htext.css" rel="stylesheet">
 <script src="site_libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.551">
+  <meta name="generator" content="quarto-1.4.552">
 
   <meta name="author" content="Neil Shephard">
   <title>Reproducible Research in Practice</title>
@@ -353,7 +353,7 @@ Neil Shephard <a href="https://orcid.org/0000-0001-8301-6857" class="quarto-titl
 <h2>Scan This</h2>
 <div id="qr1" class="qrcode"></div>
 <script type="text/javascript">
-var qrcode = new QRCode("qr1", {"colorLight":"#ffffff","width":"400","colorDark":"#000000","text":"<https://ns-rse.github.io/reproducible_research_example>","height":"400"});
+var qrcode = new QRCode("qr1", {"height":"400","text":"<https://ns-rse.github.io/reproducible_research_example>","width":"400","colorDark":"#000000","colorLight":"#ffffff"});
 </script>
     
 <p><a href="https://ns-rse.github.io/reproducible_research_example" target="_blank">ns-rse.github.io/reproducible_research_example</a></p>
@@ -381,8 +381,8 @@ var qrcode = new QRCode("qr1", {"colorLight":"#ffffff","width":"400","colorDark"
 </div>
 <aside class="notes">
 <p>Before we get into the details I thought it might be useful to explain who am I am and why I’m here to talk to you today.</p>
-<p>I started my academic career studying Zoology and Genetics at Undergraduate then moved onto a Masters in Genetic Epidemiology, both here at the University of Sheffield quite a few years ago. After graduating I spent about eight or nine years as a Genetic Statistician trying to work out what genes are involved in complex diseases at various Universities, Manchester, Western Australia and then returning to Sheffield. I then shifted careers to work as a Medical Statistician for about nine years followed by four years in industry as a Data Scientist where I didn’t actually do much data science but did learn a lot about software development which is how I’ve ended up back at the Unviversity of Sheffield as a Research Software Engineer.</p>
-<p>A common theme from my Masters on-wards is that I have used computers to write programmes and analyse data. I’ve taught myself Linux system administration and from a rudimentary training on Fortran, C and Stata have gone on to learn Bash, R and Python as well as a few other bits and pieces.</p>
+<p>I started my academic career studying Zoology and Genetics at Undergraduate then moved onto a Masters in Genetic Epidemiology, both here at the University of Sheffield quite a few years ago. After graduating I spent about eight or nine years as a Genetic Statistician trying to work out what genes are involved in complex diseases at various Universities, Manchester, Western Australia and then returning to Sheffield. I then shifted careers to work as a Medical Statistician for about nine years followed by four years in industry as a Data Scientist where I didn’t actually do much data science but did learn a lot about software development which is how I’ve ended up back at the University of Sheffield as a Research Software Engineer.</p>
+<p>A common theme from my Masters on-wards is that I have used computers to write programmes and analyse data. I’ve taught myself Linux system administration and from a rudimentary training on Fortran, C and Stata have gone on to learn Bash, R and Python as well as a few other bits and pieces of different languages.</p>
 <p>Very early on in my career I developed an interest in literate programming and reproducible research which is why Aneta has invited me her today to talk to you and I’ll expand on these topics and show you some work I’m currently engaged in and how I undertake it in a reproducible manner.</p>
 <p>Reproducible Research is one of the foundational aspects of Open Research as by ensuring our work is reproducible and open to review it improves confidence in its accuracy and reliability.</p>
 <style type="text/css">
@@ -409,6 +409,7 @@ var qrcode = new QRCode("qr1", {"colorLight":"#ffffff","width":"400","colorDark"
 <ul>
 <li>Data cleaning</li>
 <li>Analysis, graphs &amp; tables</li>
+<li>Numbers and statistics</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -461,8 +462,8 @@ var qrcode = new QRCode("qr1", {"colorLight":"#ffffff","width":"400","colorDark"
 </div>
 </div>
 <aside class="notes">
-<p>Whilst originating in computer science the principle has seen wide spread adoption in research and data science because it encourages reproducible research and facilitates open access to research.</p>
-<p>As Knuth found when he adopted the practice it <em>improved</em> the quality of the programmes he wrote and I’ve found the same is true when writing documents myself since adopting the practice over 20 years ago.</p>
+<p>Whilst originating in computer science the principle has seen widespread adoption in research and data science because it encourages reproducible research and facilitates open access to research.</p>
+<p>Also, as Knuth found when he adopted the practice it <em>improved</em> the quality of the programmes he wrote, and I’ve found the same is true when writing documents myself since adopting the practice over 20 years ago.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -484,7 +485,7 @@ var qrcode = new QRCode("qr1", {"colorLight":"#ffffff","width":"400","colorDark"
 <li>Reproducible environment (R packages using <a href="https://rstudio.github.io/renv/articles/renv.html" target="_blank">renv</a>).</li>
 </ul>
 <aside class="notes">
-<p>It can seem overwhelming learning a new paradigm or framework for undertaking work and I’ve often find that people want to get on and do the work rather than take a step back and assess how they are going about it but its well worth taking the time out to review and assess your working practices and see how they can be improved.</p>
+<p>It can seem overwhelming learning a new paradigm or framework for undertaking work and I’ve often found that people want to get on and do the work rather than take a step back and assess how they are going about it but its well worth taking the time out to review and assess your working practices and see how they can be improved.</p>
 <p>I’m going to walk you through a project that I’ve been working on that is looking to improve the prediction of Thyroid Cancer. Its not my own work, its the topic for a PhD for a clinicial Dr Ovie Edafe who is a specialist in neck cancers and related surgery.</p>
 <p>There are four broad areas that I’ll cover that hopefully align with the content you have already covered and will be covering in the coming weeks.</p>
 <p>The first step is having an organised structure to your directories having data organised in a consistent and structured manner makes it considerably easier to work with.</p>
@@ -503,9 +504,315 @@ var qrcode = new QRCode("qr1", {"colorLight":"#ffffff","width":"400","colorDark"
           display:block!important;
       }</style></aside>
 </section>
-<section id="thyroid-cancer-prediction" class="slide level2">
-<h2>Thyroid Cancer Prediction</h2>
-<p>Two repositories on GitHub</p>
+<section id="directory-structure" class="slide level2">
+<h2>Directory Structure</h2>
+<ul>
+<li>Important to keep a copy of the raw data as received.</li>
+<li>Data <em>always</em> needs cleaning.</li>
+<li>~80% of data analysis is data cleaning/wrangling data!</li>
+<li><em>Always</em> keep a record of changes you make to the data.</li>
+<li>Separate directories for different data types and script/markdown files.</li>
+</ul>
+<aside class="notes">
+<p>When undertaking research its imperative to keep a copy of the raw data as received. This might be data from sensors that have captured data and if you work with this sort of data then its likely to be fairly well structured, but can also be the results of surveys that have been captured and stored in databases and then exported for you to work with. Depending on how well the data capture was setup you will almost invariably have to clean your data, in my experience about 80% of data analysis is cleaning the data and wrangling it such as deriving variables like age from date of birth, and on that note if you ever do want to analyse age as a variable try and capture date of birth as you can easily derive the age in years or categorise it into bins, but if you only ask people to say what age band they are in you can’t go back the other way. Common errors in data cleaning are having string characters in variables that are meant to be numeric, or having categorical variables where people haven’t entered the correct field and so you have to then work out how to tidy this which I’ll come on to.</p>
+<p>The key thin is that its important to keep a record of the changes you make and these will be in R scripts or Markdown/Quarto files. And it therefore makes sense to separate your data from your scripts.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="directory-structure---thyroid-cancer-prediction" class="slide level2">
+<h2>Directory Structure - Thyroid Cancer Prediction</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<pre><code>❱ tree -d -L 2
+[4.0K Mar 19 12:36]  .
+├── [4.0K Nov 22 14:57]  ./data
+│&nbsp;&nbsp; ├── [4.0K Jan  9 13:32]  ./data/csv
+│&nbsp;&nbsp; └── [4.0K Feb 29 17:27]  ./data/r
+├── [4.0K Mar 14 17:36]  ./docs
+│&nbsp;&nbsp; ├── [   7 Jan  5 14:45]  ./docs/data -&gt; ../data
+│&nbsp;&nbsp; ├── [4.0K Feb 29 15:38]  ./docs/modelling_cache
+│&nbsp;&nbsp; ├── [4.0K Mar 14 17:21]  ./docs/modelling_files
+│&nbsp;&nbsp; ├── [   4 Jan  5 14:44]  ./docs/r -&gt; ../r
+│&nbsp;&nbsp; └── [4.0K Mar 14 17:21]  ./docs/_site
+├── [4.0K Oct 19 11:40]  ./inst
+├── [4.0K Nov 16 10:54]  ./log
+├── [4.0K Oct 19 11:24]  ./node_modules
+├── [4.0K Oct 19 12:39]  ./pages
+├── [4.0K Oct 12 10:43]  ./papers
+├── [4.0K Nov  9 11:44]  ./quarto
+│&nbsp;&nbsp; └── [4.0K Oct 19 13:12]  ./quarto/_site
+├── [4.0K Mar 14 16:59]  ./r
+├── [4.0K Mar 14 17:28]  ./renv
+│&nbsp;&nbsp; ├── [4.0K Nov 16 10:57]  ./renv/library
+│&nbsp;&nbsp; └── [4.0K Feb 29 14:28]  ./renv/staging
+├── [4.0K Jan 31 11:00]  ./_site
+│&nbsp;&nbsp; ├── [4.0K Dec 19 16:36]  ./_site/data_files
+│&nbsp;&nbsp; ├── [4.0K Feb 15 15:15]  ./_site/docs
+│&nbsp;&nbsp; ├── [4.0K Dec 19 16:36]  ./_site/modelling_files
+│&nbsp;&nbsp; └── [4.0K Jan 25 17:22]  ./_site/site_libs
+└── [4.0K Feb  1 17:47]  ./tmp
+
+29 directories</code></pre>
+</div><div class="column" style="width:50%;">
+<p>Key top-level directories</p>
+<ul>
+<li><code>data/</code> - holds data.
+<ul>
+<li><code>data/csv</code> - holds ASCII text CSV files.</li>
+<li><code>data/r</code> - holds <code>.RData</code> files.</li>
+</ul></li>
+<li><code>docs/</code> - <em>my</em> Quarto files.</li>
+<li><code>r/</code> - <em>my</em> R-scripts.</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>Here is an example of the directory structure of one of the repositories I have setup for this work.</p>
+<p>The output only shows the nesting two directory levels deep but you can see that at the top level I have a number of directories, not all of them are relevant, but the key ones are listed on the right, there is the <code>data/</code> directory which will hold all of the data, there are two sub-directories <code>csv</code> for raw CSV files and <code>r</code> which holds cleaned data in R’s byte format which speeds up loading and preserves all the labelling and categorical variables.</p>
+<p>The <code>docs/</code> directory contains my <a href="https://quarto.org" target="_blank">Quarto</a> source files that I write, both <a href="https://quarto.org" target="_blank">Quarto</a> and <a href="https://bookdown.org/yihui/rmarkdown/" target="_blank">RMarkdown</a> will make a bunch of other directories when they are rendering your pages which are some of those listed such as <code>_site</code> but you don’t need to worry about those.</p>
+<p>The final key directory that I have is <code>r/</code> which holds the R scripts that I write.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="directory-structure---data" class="slide level2">
+<h2>Directory Structure - <code>data/</code></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<pre><code>❱ tree data
+[4.0K Nov 22 14:57]  data
+├── [4.0K Jan  9 13:32]  data/csv
+│&nbsp;&nbsp; ├── [ 20K Jan  9 13:31]  data/csv/sheffield_thyroid_nodule.csv
+│&nbsp;&nbsp; └── [393K Nov  2 11:08]  data/csv/Thy3000_DATA_LABELS_Raw.csv
+└── [4.0K Feb 29 17:27]  data/r
+    ├── [ 30K Mar 14 11:12]  data/r/clean.rds
+    ├── [136K Feb 29 17:56]  data/r/elastic_net.RData
+    ├── [136K Feb 29 17:56]  data/r/lasso.RData
+    ├── [129K Feb 29 17:56]  data/r/rf.RData
+    ├── [137K Feb 29 17:58]  data/r/svm.RData
+    └── [ 14K Feb 29 17:56]  data/r/xgboost.RData
+
+3 directories, 9 files</code></pre>
+</div><div class="column" style="width:50%;">
+<p>Files</p>
+<ul>
+<li><code>data/csv/</code>
+<ul>
+<li><code>data/csv/sheffield_thyroid_nodule.csv</code> - Data!</li>
+<li><code>data/csv/Thy3000_DATA_LABELS_Raw.csv</code> - Data Dictionary.</li>
+</ul></li>
+<li><code>data/r/</code> - .
+<ul>
+<li><code>data/r/clean.rds</code> - Clean data set.</li>
+<li><code>data/r/elastic_net.RData</code> - Elastic Net model.</li>
+<li><code>data/r/lasso.RData</code> - LASSO model.</li>
+<li><code>data/r/rf.RData</code> - Random Forest model.</li>
+<li><code>data/r/svm.RData</code> - SVM model.</li>
+<li><code>data/r/xgboost.RData</code> = XGBoost model</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>The <code>data/csv</code> directory holds the raw data and there are two files the raw data <code>sheffield_thyroid_nodule.csv</code> and the data dictionary <code>Thy3000_DATA_LABELS_Raw.csv</code>.</p>
+<p>The <code>data/r</code> directory holds the cleaned data in <code>clean.rds</code> and the results of fitting various different types of models to the data.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="directory-structure---data-1" class="slide level2">
+<h2>Directory Structure - <code>data/</code></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<pre><code>❱ tree data
+[4.0K Nov 22 14:57]  data
+├── [4.0K Jan  9 13:32]  data/csv
+│&nbsp;&nbsp; ├── [ 20K Jan  9 13:31]  data/csv/sheffield_thyroid_nodule.csv
+│&nbsp;&nbsp; └── [393K Nov  2 11:08]  data/csv/Thy3000_DATA_LABELS_Raw.csv
+└── [4.0K Feb 29 17:27]  data/r
+    ├── [ 30K Mar 14 11:12]  data/r/clean.rds
+    ├── [136K Feb 29 17:56]  data/r/elastic_net.RData
+    ├── [136K Feb 29 17:56]  data/r/lasso.RData
+    ├── [129K Feb 29 17:56]  data/r/rf.RData
+    ├── [137K Feb 29 17:58]  data/r/svm.RData
+    └── [ 14K Feb 29 17:56]  data/r/xgboost.RData
+
+3 directories, 9 files</code></pre>
+</div><div class="column" style="width:50%;">
+<p>Files</p>
+<ul>
+<li><code>data/csv/</code>
+<ul>
+<li><code>data/csv/sheffield_thyroid_nodule.csv</code> - Data!</li>
+<li><code>data/csv/Thy3000_DATA_LABELS_Raw.csv</code> - Data Dictionary.</li>
+</ul></li>
+<li><code>data/r/</code> - .
+<ul>
+<li><code>data/r/clean.rds</code> - Clean data set.</li>
+<li><code>data/r/elastic_net.RData</code> - Elastic Net model.</li>
+<li><code>data/r/lasso.RData</code> - LASSO model.</li>
+<li><code>data/r/rf.RData</code> - Random Forest model.</li>
+<li><code>data/r/svm.RData</code> - SVM model.</li>
+<li><code>data/r/xgboost.RData</code> = XGBoost model</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>The <code>data/csv</code> directory holds the raw data and there are two files the raw data <code>sheffield_thyroid_nodule.csv</code> and the data dictionary <code>Thy3000_DATA_LABELS_Raw.csv</code>.</p>
+<p>The <code>data/r</code> directory holds the cleaned data in <code>clean.rds</code> and the results of fitting various different types of models to the data.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="directory-structure---docs" class="slide level2">
+<h2>Directory Structure - <code>docs/</code></h2>
+<pre><code>❱ l docs | grep -v "~"
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 17:36:04 2024 .
+drwxr-xr-x neil neil 4.0 KB Thu Mar 28 16:35:45 2024 ..
+.rw-r--r-- neil neil  10 B  Thu Feb 15 15:16:48 2024 .gitignore
+.rw-r--r-- neil neil  12 KB Thu Jan 25 15:35:49 2024 .modelling.qmd
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 17:15:43 2024 .quarto
+.rw-r--r-- neil neil 483 B  Thu Mar 14 16:59:28 2024 _quarto.yml
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 17:21:20 2024 _site
+.rw-r--r-- neil neil 408 B  Thu Mar 14 16:57:10 2024 about.qmd
+.rw-r--r-- neil neil 1.2 KB Thu Mar 14 16:57:10 2024 citations.qmd
+lrwxrwxrwx neil neil   7 B  Fri Jan  5 14:45:10 2024 data ⇒ ../data
+.rw-r--r-- neil neil  33 KB Thu Mar 14 16:57:10 2024 data.qmd
+.rw-r--r-- neil neil 363 B  Thu Mar 14 16:57:10 2024 index.qmd
+.rw-r--r-- neil neil 569 B  Thu Mar 14 16:57:10 2024 links.qmd
+.rw-r--r-- neil neil 2.0 KB Thu Mar 14 16:57:10 2024 literature.qmd
+.rw-r--r-- neil neil  32 KB Thu Mar 14 17:36:04 2024 modelling.qmd
+drwxr-xr-x neil neil 4.0 KB Thu Feb 29 15:38:53 2024 modelling_cache
+.rw-r--r-- neil neil 3.5 KB Thu Mar 14 17:31:46 2024 modelling_elastic_net.qmd
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 17:21:18 2024 modelling_files
+.rw-r--r-- neil neil 5.4 KB Thu Mar 14 17:31:46 2024 modelling_lasso.qmd
+.rw-r--r-- neil neil 3.6 KB Thu Mar 14 17:31:46 2024 modelling_random_forest.qmd
+.rw-r--r-- neil neil 7.0 KB Thu Mar 14 17:31:46 2024 modelling_tidymodel.qmd
+lrwxrwxrwx neil neil   4 B  Fri Jan  5 14:44:09 2024 r ⇒ ../r
+.rw-r--r-- neil neil  18 KB Thu Mar 14 16:57:10 2024 references.bib
+.rw-r--r-- neil neil 2.7 KB Thu Mar 14 16:57:10 2024 reproducibility.qmd
+.rw-r--r-- neil neil  17 B  Thu Mar 14 16:59:28 2024 styles.css</code></pre>
+<aside class="notes">
+<p>The <code>docs/</code> directory holds my <a href="https://quarto.org" target="_blank">Quarto</a> files which all end in <code>.qmd</code>. I don’t like having large files to navigate so split my code and papers into a number of smaller files that do specific things and include these from the master document which is <code>index.qmd</code>. There is a <code>references.bib</code> file which contains citations so we can include citations easily. The <code>_quarto.yml</code> files is a key file which defines how the Quarto project is setup and rendered but I won’t cover that in detail here.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="directory-structure---r" class="slide level2">
+<h2>Directory Structure - <code>r/</code></h2>
+<pre><code>❱ l r | grep -v "~"
+drwxr-xr-x neil neil 4.0 KB Thu Mar 14 16:59:28 2024 .
+drwxr-xr-x neil neil 4.0 KB Thu Mar 28 16:35:45 2024 ..
+.rw-r--r-- neil neil  28 KB Thu Mar 14 16:56:18 2024 clean.R
+.rw-r--r-- neil neil 684 B  Thu Mar 14 16:59:28 2024 master.R
+.rw-r--r-- neil neil  15 KB Thu Feb 29 14:40:13 2024 modelling.R
+.rw-r--r-- neil neil 2.6 KB Thu Mar 14 16:59:28 2024 simulate_data.R
+.rw-r--r-- neil neil 233 B  Thu Jan 25 17:02:10 2024 summary.R
+.rw-r--r-- neil neil 2.9 KB Thu Mar 14 16:57:10 2024 tidymodel.R</code></pre>
+<aside class="notes">
+<p>The <code>r/</code> directory holds my R scripts, the key one is <code>master.R</code> which holds the main commands that setup the R environment, load libraries and set relative directories. The <code>clean.R</code> file does what it says on the tin, it cleans the raw data and saves it in R format. There are then scripts for modelling and simulating data.</p>
+<p>Now that we’ve covered how I organise my data we can start looking at some code, but before I move on are there any questions about this aspect?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="scriptscode---master.r" class="slide level2">
+<h2>Scripts/Code - <code>master.R</code></h2>
+<pre><code>## Filename    : master.R
+## Description : Master file that controls running of all subsequent scripts.
+library(dplyr)
+library(forcats)
+library(Hmisc)
+library(lubridate)
+library(tidymodels)
+library(tidyverse)
+library(vip)
+
+## Set directories based on current location
+base_dir &lt;- getwd()
+data_dir &lt;- paste(base_dir, "data", sep = "/")
+csv_dir &lt;- paste(data_dir, "csv", sep = "/")
+r_dir &lt;- paste(data_dir, "r", sep = "/")
+r_scripts &lt;- paste(base_dir, "r", sep = "/")
+
+## Clean the data
+source(paste(r_scripts, "clean.R", sep = "/"))
+
+
+## Simulate data
+source(paste(r_scripts, "simulate_data.R", sep = "/"))
+
+## Run Statistical models
+source(paste(r_scripts, "tidymodel.R", sep = "/"))</code></pre>
+<aside class="notes">
+<p>The <code>master.R</code> script doesn’t do a great deal, it loads libraries and then as the comments show, and its important to get into the habit of putting comments in scripts to help other people, including your future self, it then sets the working directory. It does this in a reproducible manner by first asking the operating system what the current directory is using the <code>getwd()</code> command and then appends various directory paths, such as <code>data</code> and saving it in the <code>data_dir</code> variable, this in turn has <code>csv</code> appended to it and saved in the <code>csv_dir</code> which points to the nested directory where our data files live.</p>
+<p>You should get in the habit of using relative directories so that the code runs on different computers/systems, if you had hard coded the path based on where you store the files on your computer the script won’t run on any other computer until someone changes that value, relative paths get around that limitation.</p>
+<p>After setting directories a number of scripts are called using the <code>source()</code> command and within it I just paste the name of the script onto the <code>r_scripts</code> variable which holds the path to the <code>r/</code> directory. The <code>clean.R</code> script is first called, followed by the <code>simulate_data.R</code> and then the <code>tidymodels.R</code>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="version-control" class="slide level2">
+<h2>Version Control</h2>
+<p>Two repositories on <a href="https://github.com" target="_blank">GitHub</a></p>
 <ul>
 <li><a href="https://github.com/ns-rse/thyroid-cancer-prediction" target="_blank">ns-rse/thyroid-cancer-prediction</a> - repository I started to show colleague how to use Git and R.</li>
 <li><a href="https://github.com/mdp21oe/multicentre_thyroid" target="_blank">mdp21oe/multicenter-thyroid</a> - repository by Ovie to re-write his paper in Quarto Markdown.</li>
