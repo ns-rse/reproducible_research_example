@@ -12,7 +12,7 @@
 <link href="site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/grid-htext-1.0.0/grid_htext.css" rel="stylesheet">
 <script src="site_libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.552">
+  <meta name="generator" content="quarto-1.4.553">
 
   <meta name="author" content="Neil Shephard">
   <title>Reproducible Research in Practice</title>
@@ -33,6 +33,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -353,7 +418,7 @@ Neil Shephard <a href="https://orcid.org/0000-0001-8301-6857" class="quarto-titl
 <h2>Scan This</h2>
 <div id="qr1" class="qrcode"></div>
 <script type="text/javascript">
-var qrcode = new QRCode("qr1", {"height":"400","text":"<https://ns-rse.github.io/reproducible_research_example>","width":"400","colorDark":"#000000","colorLight":"#ffffff"});
+var qrcode = new QRCode("qr1", {"width":"400","text":"<https://ns-rse.github.io/reproducible_research_example>","colorLight":"#ffffff","colorDark":"#000000","height":"400"});
 </script>
     
 <p><a href="https://ns-rse.github.io/reproducible_research_example" target="_blank">ns-rse.github.io/reproducible_research_example</a></p>
@@ -531,7 +596,7 @@ var qrcode = new QRCode("qr1", {"height":"400","text":"<https://ns-rse.github.io
 <section id="directory-structure---thyroid-cancer-prediction" class="slide level2">
 <h2>Directory Structure - Thyroid Cancer Prediction</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:60%;">
 <pre><code>❱ tree -d -L 2
 [4.0K Mar 19 12:36]  .
 ├── [4.0K Nov 22 14:57]  ./data
@@ -562,14 +627,10 @@ var qrcode = new QRCode("qr1", {"height":"400","text":"<https://ns-rse.github.io
 └── [4.0K Feb  1 17:47]  ./tmp
 
 29 directories</code></pre>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:40%;">
 <p>Key top-level directories</p>
 <ul>
-<li><code>data/</code> - holds data.
-<ul>
-<li><code>data/csv</code> - holds ASCII text CSV files.</li>
-<li><code>data/r</code> - holds <code>.RData</code> files.</li>
-</ul></li>
+<li><code>data/</code> - holds data.</li>
 <li><code>docs/</code> - <em>my</em> Quarto files.</li>
 <li><code>r/</code> - <em>my</em> R-scripts.</li>
 </ul>
@@ -577,7 +638,7 @@ var qrcode = new QRCode("qr1", {"height":"400","text":"<https://ns-rse.github.io
 </div>
 <aside class="notes">
 <p>Here is an example of the directory structure of one of the repositories I have setup for this work.</p>
-<p>The output only shows the nesting two directory levels deep but you can see that at the top level I have a number of directories, not all of them are relevant, but the key ones are listed on the right, there is the <code>data/</code> directory which will hold all of the data, there are two sub-directories <code>csv</code> for raw CSV files and <code>r</code> which holds cleaned data in R’s byte format which speeds up loading and preserves all the labelling and categorical variables.</p>
+<p>The output only shows the nesting two directory levels deep, but you can see that at the top level I have a number of directories, not all of them are relevant, but the key ones are listed on the right, there is the <code>data/</code> directory which will hold all of the data, there are two sub-directories <code>csv</code> for raw CSV files and <code>r</code> which holds cleaned data in R’s byte format which speeds up loading and preserves all the labelling and categorical variables.</p>
 <p>The <code>docs/</code> directory contains my <a href="https://quarto.org" target="_blank">Quarto</a> source files that I write, both <a href="https://quarto.org" target="_blank">Quarto</a> and <a href="https://bookdown.org/yihui/rmarkdown/" target="_blank">RMarkdown</a> will make a bunch of other directories when they are rendering your pages which are some of those listed such as <code>_site</code> but you don’t need to worry about those.</p>
 <p>The final key directory that I have is <code>r/</code> which holds the R scripts that I write.</p>
 <style type="text/css">
@@ -594,8 +655,8 @@ var qrcode = new QRCode("qr1", {"height":"400","text":"<https://ns-rse.github.io
 </section>
 <section id="directory-structure---data" class="slide level2">
 <h2>Directory Structure - <code>data/</code></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
+<!-- :::: {.columns} -->
+<!-- ::: {.column width="60%"} -->
 <pre><code>❱ tree data
 [4.0K Nov 22 14:57]  data
 ├── [4.0K Jan  9 13:32]  data/csv
@@ -610,82 +671,19 @@ var qrcode = new QRCode("qr1", {"height":"400","text":"<https://ns-rse.github.io
     └── [ 14K Feb 29 17:56]  data/r/xgboost.RData
 
 3 directories, 9 files</code></pre>
-</div><div class="column" style="width:50%;">
-<p>Files</p>
+<!-- ::: -->
+<!-- ::: {.column width="40%"} -->
+<!-- Files -->
 <ul>
-<li><code>data/csv/</code>
-<ul>
-<li><code>data/csv/sheffield_thyroid_nodule.csv</code> - Data!</li>
-<li><code>data/csv/Thy3000_DATA_LABELS_Raw.csv</code> - Data Dictionary.</li>
-</ul></li>
-<li><code>data/r/</code> - .
-<ul>
-<li><code>data/r/clean.rds</code> - Clean data set.</li>
-<li><code>data/r/elastic_net.RData</code> - Elastic Net model.</li>
-<li><code>data/r/lasso.RData</code> - LASSO model.</li>
-<li><code>data/r/rf.RData</code> - Random Forest model.</li>
-<li><code>data/r/svm.RData</code> - SVM model.</li>
-<li><code>data/r/xgboost.RData</code> = XGBoost model</li>
-</ul></li>
+<li><code>data/csv/*.csv</code> - CSV files</li>
+<li><code>data/r/*.rds</code> - R files</li>
+<li><code>data/r/*.RData</code> - R files</li>
 </ul>
-</div>
-</div>
+<!-- ::: -->
+<!-- :::: -->
 <aside class="notes">
 <p>The <code>data/csv</code> directory holds the raw data and there are two files the raw data <code>sheffield_thyroid_nodule.csv</code> and the data dictionary <code>Thy3000_DATA_LABELS_Raw.csv</code>.</p>
-<p>The <code>data/r</code> directory holds the cleaned data in <code>clean.rds</code> and the results of fitting various different types of models to the data.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="directory-structure---data-1" class="slide level2">
-<h2>Directory Structure - <code>data/</code></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<pre><code>❱ tree data
-[4.0K Nov 22 14:57]  data
-├── [4.0K Jan  9 13:32]  data/csv
-│&nbsp;&nbsp; ├── [ 20K Jan  9 13:31]  data/csv/sheffield_thyroid_nodule.csv
-│&nbsp;&nbsp; └── [393K Nov  2 11:08]  data/csv/Thy3000_DATA_LABELS_Raw.csv
-└── [4.0K Feb 29 17:27]  data/r
-    ├── [ 30K Mar 14 11:12]  data/r/clean.rds
-    ├── [136K Feb 29 17:56]  data/r/elastic_net.RData
-    ├── [136K Feb 29 17:56]  data/r/lasso.RData
-    ├── [129K Feb 29 17:56]  data/r/rf.RData
-    ├── [137K Feb 29 17:58]  data/r/svm.RData
-    └── [ 14K Feb 29 17:56]  data/r/xgboost.RData
-
-3 directories, 9 files</code></pre>
-</div><div class="column" style="width:50%;">
-<p>Files</p>
-<ul>
-<li><code>data/csv/</code>
-<ul>
-<li><code>data/csv/sheffield_thyroid_nodule.csv</code> - Data!</li>
-<li><code>data/csv/Thy3000_DATA_LABELS_Raw.csv</code> - Data Dictionary.</li>
-</ul></li>
-<li><code>data/r/</code> - .
-<ul>
-<li><code>data/r/clean.rds</code> - Clean data set.</li>
-<li><code>data/r/elastic_net.RData</code> - Elastic Net model.</li>
-<li><code>data/r/lasso.RData</code> - LASSO model.</li>
-<li><code>data/r/rf.RData</code> - Random Forest model.</li>
-<li><code>data/r/svm.RData</code> - SVM model.</li>
-<li><code>data/r/xgboost.RData</code> = XGBoost model</li>
-</ul></li>
-</ul>
-</div>
-</div>
-<aside class="notes">
-<p>The <code>data/csv</code> directory holds the raw data and there are two files the raw data <code>sheffield_thyroid_nodule.csv</code> and the data dictionary <code>Thy3000_DATA_LABELS_Raw.csv</code>.</p>
-<p>The <code>data/r</code> directory holds the cleaned data in <code>clean.rds</code> and the results of fitting various different types of models to the data.</p>
+<p>The <code>data/r</code> directory holds the cleaned data in <code>clean.rds</code> and the results of fitting various different types of models to the data in the <code>.RData</code> files.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -768,32 +766,32 @@ drwxr-xr-x neil neil 4.0 KB Thu Mar 28 16:35:45 2024 ..
 </section>
 <section id="scriptscode---master.r" class="slide level2">
 <h2>Scripts/Code - <code>master.R</code></h2>
-<pre><code>## Filename    : master.R
-## Description : Master file that controls running of all subsequent scripts.
-library(dplyr)
-library(forcats)
-library(Hmisc)
-library(lubridate)
-library(tidymodels)
-library(tidyverse)
-library(vip)
-
-## Set directories based on current location
-base_dir &lt;- getwd()
-data_dir &lt;- paste(base_dir, "data", sep = "/")
-csv_dir &lt;- paste(data_dir, "csv", sep = "/")
-r_dir &lt;- paste(data_dir, "r", sep = "/")
-r_scripts &lt;- paste(base_dir, "r", sep = "/")
-
-## Clean the data
-source(paste(r_scripts, "clean.R", sep = "/"))
-
-
-## Simulate data
-source(paste(r_scripts, "simulate_data.R", sep = "/"))
-
-## Run Statistical models
-source(paste(r_scripts, "tidymodel.R", sep = "/"))</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="do">## Filename    : master.R</span></span>
+<span id="cb5-2"><a></a><span class="do">## Description : Master file that controls running of all subsequent scripts.</span></span>
+<span id="cb5-3"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-4"><a></a><span class="fu">library</span>(forcats)</span>
+<span id="cb5-5"><a></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb5-6"><a></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb5-7"><a></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb5-8"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-9"><a></a><span class="fu">library</span>(vip)</span>
+<span id="cb5-10"><a></a></span>
+<span id="cb5-11"><a></a><span class="do">## Set directories based on current location</span></span>
+<span id="cb5-12"><a></a>base_dir <span class="ot">&lt;-</span> <span class="fu">getwd</span>()</span>
+<span id="cb5-13"><a></a>data_dir <span class="ot">&lt;-</span> <span class="fu">paste</span>(base_dir, <span class="st">"data"</span>, <span class="at">sep =</span> <span class="st">"/"</span>)</span>
+<span id="cb5-14"><a></a>csv_dir <span class="ot">&lt;-</span> <span class="fu">paste</span>(data_dir, <span class="st">"csv"</span>, <span class="at">sep =</span> <span class="st">"/"</span>)</span>
+<span id="cb5-15"><a></a>r_dir <span class="ot">&lt;-</span> <span class="fu">paste</span>(data_dir, <span class="st">"r"</span>, <span class="at">sep =</span> <span class="st">"/"</span>)</span>
+<span id="cb5-16"><a></a>r_scripts <span class="ot">&lt;-</span> <span class="fu">paste</span>(base_dir, <span class="st">"r"</span>, <span class="at">sep =</span> <span class="st">"/"</span>)</span>
+<span id="cb5-17"><a></a></span>
+<span id="cb5-18"><a></a><span class="do">## Clean the data</span></span>
+<span id="cb5-19"><a></a><span class="fu">source</span>(<span class="fu">paste</span>(r_scripts, <span class="st">"clean.R"</span>, <span class="at">sep =</span> <span class="st">"/"</span>))</span>
+<span id="cb5-20"><a></a></span>
+<span id="cb5-21"><a></a></span>
+<span id="cb5-22"><a></a><span class="do">## Simulate data</span></span>
+<span id="cb5-23"><a></a><span class="fu">source</span>(<span class="fu">paste</span>(r_scripts, <span class="st">"simulate_data.R"</span>, <span class="at">sep =</span> <span class="st">"/"</span>))</span>
+<span id="cb5-24"><a></a></span>
+<span id="cb5-25"><a></a><span class="do">## Run Statistical models</span></span>
+<span id="cb5-26"><a></a><span class="fu">source</span>(<span class="fu">paste</span>(r_scripts, <span class="st">"tidymodel.R"</span>, <span class="at">sep =</span> <span class="st">"/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
 <p>The <code>master.R</code> script doesn’t do a great deal, it loads libraries and then as the comments show, and its important to get into the habit of putting comments in scripts to help other people, including your future self, it then sets the working directory. It does this in a reproducible manner by first asking the operating system what the current directory is using the <code>getwd()</code> command and then appends various directory paths, such as <code>data</code> and saving it in the <code>data_dir</code> variable, this in turn has <code>csv</code> appended to it and saved in the <code>csv_dir</code> which points to the nested directory where our data files live.</p>
 <p>You should get in the habit of using relative directories so that the code runs on different computers/systems, if you had hard coded the path based on where you store the files on your computer the script won’t run on any other computer until someone changes that value, relative paths get around that limitation.</p>
@@ -810,7 +808,194 @@ source(paste(r_scripts, "tidymodel.R", sep = "/"))</code></pre>
           display:block!important;
       }</style></aside>
 </section>
+<section id="scriptscode---rclean.r" class="slide level2">
+<h2>Scripts/code - <code>r/clean.R</code></h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="do">## Filename : clean.R</span></span>
+<span id="cb6-2"><a></a><span class="do">## Description : Load and clean raw data, saving as a .RData file for subsequent analyses.</span></span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a><span class="do">## Read the data and convert to tibble</span></span>
+<span id="cb6-5"><a></a>df_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste</span>(csv_dir, <span class="st">"Thy3000_DATA_LABELS_Raw.csv"</span>, <span class="at">sep =</span> <span class="st">"/"</span>))</span>
+<span id="cb6-6"><a></a>df_raw <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(df_raw)</span>
+<span id="cb6-7"><a></a><span class="do">## Rename columns using dplyr::rename()</span></span>
+<span id="cb6-8"><a></a>df_raw <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(df_raw,</span>
+<span id="cb6-9"><a></a>  <span class="at">record_id =</span> <span class="st">"Record ID"</span>,</span>
+<span id="cb6-10"><a></a>  <span class="at">data_access_group =</span> <span class="st">"Data Access Group"</span>,</span>
+<span id="cb6-11"><a></a>  <span class="at">study_id =</span> <span class="st">"Study ID"</span>,</span>
+<span id="cb6-12"><a></a>  <span class="at">date_referral =</span> <span class="st">"1.1 Date of referral"</span>,</span>
+<span id="cb6-13"><a></a>  <span class="at">clinic_recruiting =</span> <span class="st">"1.2 Which clinic was the patient recruited from?"</span>,</span>
+<span id="cb6-14"><a></a>  <span class="at">clinic_recruiting_other =</span> <span class="st">"If Other"</span>,</span>
+<span id="cb6-15"><a></a>  <span class="at">date_clinic =</span> <span class="st">"1.3. The date the patient was seen in clinic"</span>,</span>
+<span id="cb6-16"><a></a>  <span class="at">referral_source =</span> <span class="st">"1.4 Referral source"</span>,</span>
+<span id="cb6-17"><a></a>  <span class="at">referral_source_other =</span> <span class="st">"If Other, please specify"</span>,</span>
+<span id="cb6-18"><a></a>  <span class="at">two_week_wait_referral =</span> <span class="st">"1.4.1 If GP, was it 2-week wait referral?"</span>,</span>
+<span id="cb6-19"><a></a>  <span class="at">presentation =</span> <span class="st">"1.5. Presentation"</span>,</span>
+<span id="cb6-20"><a></a>  <span class="at">presentation_complete =</span> <span class="st">"Complete?...12"</span>,</span>
+<span id="cb6-21"><a></a>  <span class="at">age =</span> <span class="st">"2.1. Age of the patient when seen in clinic"</span>,</span>
+<span id="cb6-22"><a></a>  <span class="at">bmi =</span> <span class="st">"2.2. Body Mass Index of patient"</span>,</span>
+<span id="cb6-23"><a></a>  <span class="at">smoking_status =</span> <span class="st">"2.3. Smoking status"</span>,</span>
+<span id="cb6-24"><a></a>  ...</span>
+<span id="cb6-25"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>Its important to script the work you do on the code, it provides evidence of the changes that have been made to clean the code up and allows the work to be fully reproducible. Such an audit trail is useful as it allows mistakes to be corrected. This and other R and Quarto Markdown files are version controlled using Git which I’ll come onto shortly.</p>
+<p>This script, <code>r/clean.R</code> does the hard work of cleaning/tidying the data.</p>
+<p>It loads the data in and then renames a bunch of variables because spaces in names are a pain and all the numerical prefixes are pointless.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="scriptscode---rclean.r-cont." class="slide level2">
+<h2>Scripts/code - <code>r/clean.R</code> (<em>cont.</em>)</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a></span>
+<span id="cb7-2"><a></a><span class="do">## Convert dates to elapsed dates using lubridate</span></span>
+<span id="cb7-3"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-5"><a></a>    <span class="at">date_referral =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_referral),</span>
+<span id="cb7-6"><a></a>    <span class="at">date_clinic =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_clinic),</span>
+<span id="cb7-7"><a></a>    <span class="at">date_initial_management_decision =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_initial_management_decision),</span>
+<span id="cb7-8"><a></a>    <span class="at">date_treatment =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_treatment),</span>
+<span id="cb7-9"><a></a>    <span class="at">routine_review_date_last_seen =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(routine_review_date_last_seen)</span>
+<span id="cb7-10"><a></a>  )</span>
+<span id="cb7-11"><a></a></span>
+<span id="cb7-12"><a></a><span class="do">## Convert variables that are meant to be numeric but aren't</span></span>
+<span id="cb7-13"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb7-14"><a></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb7-15"><a></a>    <span class="at">bmi =</span> <span class="fu">as.numeric</span>(bmi),</span>
+<span id="cb7-16"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><a href="https://www.tidyverse.org/" target="_blank">Tidyverse</a>
+<ul>
+<li><a href="https://dplyr.tidyverse.org/" target="_blank"><code>{dplyr}</code></a></li>
+<li><a href="https://lubridate.tidyverse.org/" target="_blank"><code>{lubridate}</code></a></li>
+<li><a href="https://r4ds.hadley.nz/" target="_blank">R for DataScience (2e)</a></li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>Another important step to working with data is to ensure the dates are correct and recognised by the software, the strings people typically enter these as are not something that computers can do calculations on, instead software uses elapsed times and takes as <a href="https://www.epochconverter.com/" target="_blank">epoch time</a> which is the number seconds that have elapsed from midnight on 1970-01-01 and so internally these are stored as numeric values but they can be represented as human readable dates. But the advantage of having them stored as epoch time is that you can then perform calculations on them and work out periods of time.</p>
+<p>Often unless data capture has been done very carefully there will be errors in numerical variables such as including characters which means the whole column for something that is meant to be numeric such as Body Mass Index (<code>bmi</code>) are not the correct type, they’re strings rather than actual numbers. We can use the <code>as.numeric()</code> function here with the Tidyverse package <code>dplyr::mutate()</code> to replace these.</p>
+<p>Its worth mentioning the Tidyverse which is an “<em>opinionated collection of R packages for data science</em>” that make working with data in R considerably easier than the base functions. I would highly recommend the book.</p>
+<p>Perhaps the biggest and best feature of the Tidyverse is the pipe, here I’m using the base pipe <code>|&gt;</code> which allows commands to be written in a Western-style of grammar, reading from left to right and top down rather than in base R where you would nest functions within each other.</p>
+<p>This vastly improves the readability of the code.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="scriptscode---rclean.r-cont.-1" class="slide level2">
+<h2>Scripts/code - <code>r/clean.R</code> (<em>cont.</em>)</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a></span>
+<span id="cb8-2"><a></a>check_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb8-3"><a></a>  <span class="st">"previous_neck_irradiation"</span>,</span>
+<span id="cb8-4"><a></a>  <span class="st">"incidental_imaging"</span>,</span>
+<span id="cb8-5"><a></a>  <span class="st">"retrosternal"</span>,</span>
+<span id="cb8-6"><a></a>  <span class="st">"palpable_lymphadenopathy"</span>,</span>
+<span id="cb8-7"><a></a>  <span class="st">"nodule_rapid_growth"</span>,</span>
+<span id="cb8-8"><a></a>  <span class="st">"thyroid_function_3months"</span>,</span>
+<span id="cb8-9"><a></a>  <span class="st">"ultrasound"</span>,</span>
+<span id="cb8-10"><a></a>  <span class="st">"elastography"</span>,</span>
+<span id="cb8-11"><a></a>  <span class="st">"ct_neck"</span>,</span>
+<span id="cb8-12"><a></a>  <span class="st">"mri_neck"</span>,</span>
+<span id="cb8-13"><a></a>  <span class="st">"iodine_scan"</span>,</span>
+<span id="cb8-14"><a></a>  <span class="st">"nodule_fna"</span>,</span>
+<span id="cb8-15"><a></a>  <span class="st">"core_biopsy"</span>,</span>
+<span id="cb8-16"><a></a>  <span class="st">"routine_review_ultrasound"</span>,</span>
+<span id="cb8-17"><a></a>  <span class="st">"routine_review_fna"</span>,</span>
+<span id="cb8-18"><a></a>  <span class="st">"routine_review_patient_signposting_information"</span></span>
+<span id="cb8-19"><a></a>)</span>
+<span id="cb8-20"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb8-21"><a></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb8-22"><a></a>    <span class="fu">all_of</span>(check_cols),</span>
+<span id="cb8-23"><a></a>    <span class="sc">~</span> dplyr<span class="sc">::</span><span class="fu">recode</span>(.x,</span>
+<span id="cb8-24"><a></a>      <span class="st">"Yes"</span> <span class="ot">=</span> <span class="dv">1</span>,</span>
+<span id="cb8-25"><a></a>      <span class="st">"No"</span> <span class="ot">=</span> <span class="dv">0</span>,</span>
+<span id="cb8-26"><a></a>      <span class="st">"Not Known"</span> <span class="ot">=</span> <span class="cn">NA_real_</span></span>
+<span id="cb8-27"><a></a>    )</span>
+<span id="cb8-28"><a></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><a href="https://github.com/ns-rse/thyroid-cancer-prediction/blob/main/r/clean.R" target="_blank">thyroid-cancer-prediction/r/clean.R</a></li>
+</ul>
+<aside class="notes">
+<p>Another common task in cleaning data is to convert string variables such as <code>Yes</code> / <code>No</code> / <code>Not Known</code> to numerical binary variables. Typically there will be lots of columns on which you want to do this and rather than write the same code out lots there are a lot of neat ways of repeating commands across a range of variables.</p>
+<p>Here we save all the variables we want to convert in the <code>check_cols</code> variable and then within the <code>dplyr::mutate()</code> function we apply the same function <code>dplyr::recode()</code> <code>across()</code> <code>all_of()</code> this list, replacing <code>Yes</code> with <code>1</code>, <code>No</code> with <code>0</code> and <code>Not Known</code> with R’s internal <code>NA</code> value.</p>
+<p>Currently it has 704 lines so I can’t tal you through all of it but because this is all open if you want to look at the code you can do and I’ve included the link on this slide.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="scriptscode---rclean.r-cont.-2" class="slide level2">
+<h2>Scripts/code - <code>r/clean.R</code> (<em>cont.</em>)</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="do">## Finally save the data</span></span>
+<span id="cb9-2"><a></a><span class="fu">saveRDS</span>(df, <span class="at">file =</span> <span class="fu">paste</span>(r_dir, <span class="st">"clean.rds"</span>, <span class="at">sep =</span> <span class="st">"/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><a href="https://github.com/ns-rse/thyroid-cancer-prediction/blob/main/r/clean.R" target="_blank">thyroid-cancer-prediction/r/clean.R</a></li>
+</ul>
+<aside class="notes">
+<p>Finally though we save the <code>df</code> data frame in the <code>r_dir</code> directory that was defined in the <code>master.R</code> script.</p>
+<p>I can re-run this at any time if for example there was an error in my code, or more patients have been collected and the dataset needs analysing again or conversely if someone withdraws from the study I could add lines to <code>r/clean.R</code> to remove them from the dataset that is being analysed.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="version-control" class="slide level2">
+<h2>Version Control</h2>
+<ul>
+<li>Keep fine-grained records of changes to code.</li>
+<li>Regular saves of work.</li>
+<li>Backup and collaboration via <a href="https://github.com" target="_blank">GitHub</a> / <a href="https://gitlab.com" target="_blank">GitLab</a></li>
+<li>Organised and consistent system, avoids…</li>
+</ul>
+<aside class="notes">
+<p>I’ve mentioned that the files for this work are version controlled, hands up anyone who has heared of Version Control?</p>
+<p>Keep your hands up if you’ve used version control?</p>
+<p>Ok, thank you.</p>
+<p>Version control has been around for a long time, you may be familiar with editions of books as one example or with Wikipedia where the changes and edits that people make are tracked</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="version-control-1" class="slide level2">
+<h2>Version Control</h2>
+<p><img data-src="https://www.phdcomics.com/comics/archive/phd101212s.gif"></p>
+</section>
+<section id="version-control-2" class="slide level2">
 <h2>Version Control</h2>
 <p>Two repositories on <a href="https://github.com" target="_blank">GitHub</a></p>
 <ul>
@@ -861,157 +1046,91 @@ You can also include images locally.^[Make sure to `git add` them otherwise they
 ::: {.notes}
 :::
 
-## R code
-
-:::: {.columns}
-
-::: {.column width="50%"}
-Include [R code and output](https://quarto.org/docs/computations/r.html) with automatic referencing (see @fig-airquality2)
-
-
-::: {.cell}
-
-```{.r .cell-code}
-library(ggplot2)
-
-ggplot(airquality, aes(Temp, Ozone)) +
-  geom_point() +
-  geom_smooth(method = "loess")
-```
-:::
-
-
-:::
-::: {.column width="50%"}
-
-
-::: {.cell}
-::: {.cell-output-display}
-![Temperature and ozone level.](index_files/figure-revealjs/fig-airquality2-1.png){#fig-airquality2 width=960}
-:::
-:::
-
-
-:::
-
-::::
-
-::: {.notes}
-[R](https://www.r-project.org/) code can be embeded and executed to produce tables and figures.
-:::
-
-## Python code
-
-::: {.column width="50%"}
-Include [Python code and output](https://quarto.org/docs/computations/python.html) too
-
-```{.python}
-#| label: fig-polar
-#| fig-cap: "A line plot on a polar axis."
-#| warning: false
-#| eval: false
-#| echo: true
-import numpy as np
-import matplotlib.pyplot as plt
-
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(
-  subplot_kw = {'projection': 'polar'}
-)
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
-```
-
-:::
-::: {.column width="50%"}
-
-```{.python}
-#| label: fig-polar2
-#| fig-cap: "A line plot on a polar axis."
-#| warning: false
-#| eval: true
-#| echo: true
-import numpy as np
-import matplotlib.pyplot as plt
-
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(
-  subplot_kw = {'projection': 'polar'}
-)
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
-```
-
-:::
-::::
-
-::: {.notes}
-You can include [Python](https://www.python.org) code too
-:::
-
-## General code
-
-There are lots of options for showing, hiding, highlighting [code
-blocks](https://quarto.org/docs/presentations/revealjs/#code-blocks).
-
-```{.python code-line-numbers="6-8"}
-#| eval: true
-#| echo: true
-import numpy as np
-import matplotlib.pyplot as plt
-
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
-```
-
-## The Documentation is Good
-
-The official documentation is really good.
-
-+ [Get Started](https://quarto.org/docs/get-started/)
-+ [Markdown Basics](https://quarto.org/docs/authoring/markdown-basics.html)
-+ [Guide](https://quarto.org/docs/guide/) with many sections on [Presentations](https://quarto.org/docs/presentations/)
-  [Website](https://quarto.org/docs/websites/), [Books](https://quarto.org/docs/books/) and more.
-
-## Extensions
-
-:::: {.columns}
-
-::: {.column width="70%"}
-[Extensions](https://quarto.org/docs/extensions/) for themes and other functionality
-(press `c` whilst viewing these slides :wink: ).
-
-+ [Shortcode/Filter](https://quarto.org/docs/extensions/listing-filters.html)
-+ [Journal Articles](https://quarto.org/docs/extensions/listing-journals.html)
-+ [Custom Formats](https://quarto.org/docs/extensions/listing-formats.html)
-+ [**RevealJS**](https://quarto.org/docs/extensions/listing-revealjs.html)
-+ [awesome-quarto](https://github.com/mcanouil/awesome-quarto) - Quarto tools & examples
-
-:::
-::: {.column width=30%}
-This Template...
-
-
-
-
-
-
-
-:::
-::::
-
 -->
+</section>
+<section id="quarto-data-science-learning-community" class="slide level2">
+<h2>Quarto &amp; Data Science Learning Community</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The official documentation is <em>really</em> good.</p>
+<ul>
+<li><a href="https://quarto.org/docs/get-started/" target="_blank">Get Started</a></li>
+<li><a href="https://quarto.org/docs/authoring/markdown-basics.html" target="_blank">Markdown Basics</a></li>
+<li><a href="https://quarto.org/docs/guide/" target="_blank">Guide</a> with many sections on <a href="https://quarto.org/docs/presentations/" target="_blank">Presentations</a> <a href="https://quarto.org/docs/websites/" target="_blank">Website</a>, <a href="https://quarto.org/docs/books/" target="_blank">Books</a> and more.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div id="qr3" class="qrcode"></div>
+<script type="text/javascript">
+var qrcode = new QRCode("qr3", {"width":"400","text":"<https://dslc.io/>","colorLight":"#ffffff","colorDark":"#000000","height":"400"});
+</script>
+    
+<p><a href="https://dslc.io/" target="_blank">Data Science Learning Community (dslc.io)</a></p>
+</div>
+</div>
+<aside class="notes">
+<p>I think most of the course material you’re learning is focused on RMarkdown but everything you learn can be applied to Quarto which is really the next iteration or generation of RMarkdown. If you’re keen to give it a try then the documentation is really good.</p>
+<p>Perhaps also of interest when you have questions about things which aren’t working as you’d expect or how to do something is the execellent <a href="https://dslc.io/" target="_blank">Data Science Learning Community (dslc.io)</a> (need R4DS community) which is a great place to join book clubs to work through things like <a href="https://r4ds.hadley.nz/" target="_blank">R for Data Science (2e)</a> and over 50 books clubs or ask questions in their Slack channel.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!-- ## Extensions -->
+<!-- :::: {.columns} -->
+<!-- ::: {.column width="70%"} -->
+<!-- [Extensions](https://quarto.org/docs/extensions/) for themes and other functionality -->
+<!-- (press `c` whilst viewing these slides :wink: ). -->
+<!-- + [Shortcode/Filter](https://quarto.org/docs/extensions/listing-filters.html) -->
+<!-- + [Journal Articles](https://quarto.org/docs/extensions/listing-journals.html) -->
+<!-- + [Custom Formats](https://quarto.org/docs/extensions/listing-formats.html) -->
+<!-- + [**RevealJS**](https://quarto.org/docs/extensions/listing-revealjs.html) -->
+<!-- + [awesome-quarto](https://github.com/mcanouil/awesome-quarto) - Quarto tools & examples -->
+<!-- ::: -->
+<!-- ::: {.column width=30%} -->
+<!-- This Template... -->
+<!--  -->
+<!-- ::: -->
+<!-- :::: -->
+</section>
+<section id="sheffieldr-user-group" class="slide level2">
+<h2>SheffieldR User Group</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://sheffieldr.github.io" target="_blank"><img data-src="https://sheffieldr.github.io/schedule_slides/img/SheffieldR_hex.png" alt="sheffieldr.github.io"></a></p>
+<figcaption>sheffieldr.github.io</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div id="qr2" class="qrcode"></div>
+<script type="text/javascript">
+var qrcode = new QRCode("qr2", {"width":"400","text":"<https://sheffieldr.github.io/>","colorLight":"#ffffff","colorDark":"#000000","height":"400"});
+</script>
+    
+<p><a href="https://sheffieldr.github.io" target="_blank">sheffieldr.github.io</a></p>
+</div>
+</div>
+<aside class="notes">
+<p>If you’re interested in learning more about the many wonderful things you can do with R then you might be interested in the SheffieldR User Group that meets roughly every month with presentations and talks on different packages and how to do different things with R.</p>
+<p>Its meant to be diverse, friendly and welcoming to users of all abilities.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
@@ -1248,44 +1367,6 @@ This Template...
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

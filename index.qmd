@@ -202,7 +202,7 @@ Markdown/Quarto files. And it therefore makes sense to separate your data from y
 
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column width="60%"}
 
 ```
 ❱ tree -d -L 2
@@ -238,13 +238,11 @@ Markdown/Quarto files. And it therefore makes sense to separate your data from y
 ```
 
 :::
-::: {.column width="50%"}
+::: {.column width="40%"}
 
 Key top-level directories
 
 + `data/` - holds data.
-  + `data/csv` - holds ASCII text CSV files.
-  + `data/r` - holds `.RData` files.
 + `docs/` - _my_ Quarto files.
 + `r/` - _my_ R-scripts.
 :::
@@ -254,7 +252,7 @@ Key top-level directories
 ::: {.notes}
 Here is an example of the directory structure of one of the repositories I have setup for this work.
 
-The output only shows the nesting two directory levels deep but you can see that at the top level I have a number of
+The output only shows the nesting two directory levels deep, but you can see that at the top level I have a number of
 directories, not all of them are relevant, but the key ones are listed on the right, there is the `data/` directory
 which will hold all of the data, there are two sub-directories `csv` for raw CSV files and `r` which holds cleaned data
 in R's byte format which speeds up loading and preserves all the labelling and categorical variables.
@@ -266,12 +264,11 @@ don't need to worry about those.
 The final key directory that I have is `r/` which holds the R scripts that I write.
 :::
 
-
 ## Directory Structure - `data/`
 
-:::: {.columns}
+<!-- :::: {.columns} -->
 
-::: {.column width="50%"}
+<!-- ::: {.column width="60%"} -->
 
 ```
 ❱ tree data
@@ -290,24 +287,17 @@ The final key directory that I have is `r/` which holds the R scripts that I wri
 3 directories, 9 files
 ```
 
-:::
-::: {.column width="50%"}
+<!-- ::: -->
+<!-- ::: {.column width="40%"} -->
 
-Files
+<!-- Files -->
 
-+ `data/csv/`
-  + `data/csv/sheffield_thyroid_nodule.csv` - Data!
-  + `data/csv/Thy3000_DATA_LABELS_Raw.csv` - Data Dictionary.
-+ `data/r/` - .
-  + `data/r/clean.rds` - Clean data set.
-  + `data/r/elastic_net.RData` - Elastic Net model.
-  + `data/r/lasso.RData` - LASSO model.
-  + `data/r/rf.RData` - Random Forest model.
-  + `data/r/svm.RData` - SVM model.
-  + `data/r/xgboost.RData` = XGBoost model
++ `data/csv/*.csv` - CSV files
++ `data/r/*.rds` - R files
++ `data/r/*.RData` - R files
 
-:::
-::::
+<!-- ::: -->
+<!-- :::: -->
 
 
 ::: {.notes}
@@ -315,59 +305,7 @@ The `data/csv` directory holds the raw data and there are two files the raw data
 data dictionary `Thy3000_DATA_LABELS_Raw.csv`.
 
 The `data/r` directory holds the cleaned data in `clean.rds` and the results of fitting various different types of
-models to the data.
-:::
-
-
-## Directory Structure - `data/`
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-```
-❱ tree data
-[4.0K Nov 22 14:57]  data
-├── [4.0K Jan  9 13:32]  data/csv
-│   ├── [ 20K Jan  9 13:31]  data/csv/sheffield_thyroid_nodule.csv
-│   └── [393K Nov  2 11:08]  data/csv/Thy3000_DATA_LABELS_Raw.csv
-└── [4.0K Feb 29 17:27]  data/r
-    ├── [ 30K Mar 14 11:12]  data/r/clean.rds
-    ├── [136K Feb 29 17:56]  data/r/elastic_net.RData
-    ├── [136K Feb 29 17:56]  data/r/lasso.RData
-    ├── [129K Feb 29 17:56]  data/r/rf.RData
-    ├── [137K Feb 29 17:58]  data/r/svm.RData
-    └── [ 14K Feb 29 17:56]  data/r/xgboost.RData
-
-3 directories, 9 files
-```
-
-:::
-::: {.column width="50%"}
-
-Files
-
-+ `data/csv/`
-  + `data/csv/sheffield_thyroid_nodule.csv` - Data!
-  + `data/csv/Thy3000_DATA_LABELS_Raw.csv` - Data Dictionary.
-+ `data/r/` - .
-  + `data/r/clean.rds` - Clean data set.
-  + `data/r/elastic_net.RData` - Elastic Net model.
-  + `data/r/lasso.RData` - LASSO model.
-  + `data/r/rf.RData` - Random Forest model.
-  + `data/r/svm.RData` - SVM model.
-  + `data/r/xgboost.RData` = XGBoost model
-
-:::
-::::
-
-
-::: {.notes}
-The `data/csv` directory holds the raw data and there are two files the raw data `sheffield_thyroid_nodule.csv` and the
-data dictionary `Thy3000_DATA_LABELS_Raw.csv`.
-
-The `data/r` directory holds the cleaned data in `clean.rds` and the results of fitting various different types of
-models to the data.
+models to the data in the `.RData` files.
 :::
 
 
@@ -442,7 +380,7 @@ questions about this aspect?
 
 ## Scripts/Code - `master.R`
 
-```
+```{.r}
 ## Filename    : master.R
 ## Description : Master file that controls running of all subsequent scripts.
 library(dplyr)
@@ -488,6 +426,188 @@ name of the script onto the `r_scripts` variable which holds the path to the `r/
 first called, followed by the `simulate_data.R` and then the `tidymodels.R`.
 
 :::
+
+## Scripts/code - `r/clean.R`
+
+```{.r}
+## Filename : clean.R
+## Description : Load and clean raw data, saving as a .RData file for subsequent analyses.
+
+## Read the data and convert to tibble
+df_raw <- read_csv(paste(csv_dir, "Thy3000_DATA_LABELS_Raw.csv", sep = "/"))
+df_raw <- as_tibble(df_raw)
+## Rename columns using dplyr::rename()
+df_raw <- dplyr::rename(df_raw,
+  record_id = "Record ID",
+  data_access_group = "Data Access Group",
+  study_id = "Study ID",
+  date_referral = "1.1 Date of referral",
+  clinic_recruiting = "1.2 Which clinic was the patient recruited from?",
+  clinic_recruiting_other = "If Other",
+  date_clinic = "1.3. The date the patient was seen in clinic",
+  referral_source = "1.4 Referral source",
+  referral_source_other = "If Other, please specify",
+  two_week_wait_referral = "1.4.1 If GP, was it 2-week wait referral?",
+  presentation = "1.5. Presentation",
+  presentation_complete = "Complete?...12",
+  age = "2.1. Age of the patient when seen in clinic",
+  bmi = "2.2. Body Mass Index of patient",
+  smoking_status = "2.3. Smoking status",
+  ...
+  )
+```
+
+::: {.notes}
+Its important to script the work you do on the code, it provides evidence of the changes that have been made to clean
+the code up and allows the work to be fully reproducible. Such an audit trail is useful as it allows mistakes to be
+corrected. This and other R and Quarto Markdown files are version controlled using Git which I'll come onto shortly.
+
+This script, `r/clean.R` does the hard work of cleaning/tidying the data.
+
+It loads the data in and then renames a bunch of variables because spaces in names are a pain and all the numerical
+prefixes are pointless.
+:::
+
+## Scripts/code - `r/clean.R` (_cont._)
+
+```{.r}
+
+## Convert dates to elapsed dates using lubridate
+df <- df |>
+  mutate(
+    date_referral = lubridate::dmy(date_referral),
+    date_clinic = lubridate::dmy(date_clinic),
+    date_initial_management_decision = lubridate::dmy(date_initial_management_decision),
+    date_treatment = lubridate::dmy(date_treatment),
+    routine_review_date_last_seen = lubridate::dmy(routine_review_date_last_seen)
+  )
+
+## Convert variables that are meant to be numeric but aren't
+df <- df |>
+  dplyr::mutate(
+    bmi = as.numeric(bmi),
+  )
+```
+
++ [Tidyverse][tv]
+  + [`{dplyr}`][dplyr]
+  + [`{lubridate}`][lubridate]
+  + [R for DataScience (2e)][r4ds]
+
+::: {.notes}
+Another important step to working with data is to ensure the dates are correct and recognised by the software, the
+strings people typically enter these as are not something that computers can do calculations on, instead software uses
+elapsed times and takes as [epoch time](https://www.epochconverter.com/) which is the number seconds that have elapsed
+from midnight on 1970-01-01 and so internally these are stored as numeric values but they can be represented as human
+readable dates. But the advantage of having them stored as epoch time is that you can then perform calculations on them
+and work out periods of time.
+
+Often unless data capture has been done very carefully there will be errors in numerical variables such as including
+characters which means the whole column for something that is meant to be numeric such as Body Mass Index (`bmi`) are
+not the correct type, they're strings rather than actual numbers. We can use the `as.numeric()` function here with the
+Tidyverse package `dplyr::mutate()` to replace these.
+
+Its worth mentioning the Tidyverse which is an "_opinionated collection of R packages for data science_" that make
+working with data in R considerably easier than the base functions. I would highly recommend the book.
+
+Perhaps the biggest and best feature of the Tidyverse is the pipe, here I'm using the base pipe `|>` which allows
+commands to be written in a Western-style of grammar, reading from left to right and top down rather than in base R
+where you would nest functions within each other.
+
+This vastly improves the readability of the code.
+:::
+
+
+## Scripts/code - `r/clean.R` (_cont._)
+
+```{.r}
+
+check_cols <- c(
+  "previous_neck_irradiation",
+  "incidental_imaging",
+  "retrosternal",
+  "palpable_lymphadenopathy",
+  "nodule_rapid_growth",
+  "thyroid_function_3months",
+  "ultrasound",
+  "elastography",
+  "ct_neck",
+  "mri_neck",
+  "iodine_scan",
+  "nodule_fna",
+  "core_biopsy",
+  "routine_review_ultrasound",
+  "routine_review_fna",
+  "routine_review_patient_signposting_information"
+)
+df <- df %>%
+  dplyr::mutate(across(
+    all_of(check_cols),
+    ~ dplyr::recode(.x,
+      "Yes" = 1,
+      "No" = 0,
+      "Not Known" = NA_real_
+    )
+  ))
+```
+
++ [thyroid-cancer-prediction/r/clean.R](https://github.com/ns-rse/thyroid-cancer-prediction/blob/main/r/clean.R)
+
+::: {.notes}
+Another common task in cleaning data is to convert string variables such as `Yes` / `No` / `Not Known` to numerical
+binary variables. Typically there will be lots of columns on which you want to do this and rather than write the same
+code out lots there are a lot of neat ways of repeating commands across a range of variables.
+
+Here we save all the variables we want to convert in the `check_cols` variable and then within the `dplyr::mutate()`
+function we apply the same function `dplyr::recode()` `across()` `all_of()` this list, replacing `Yes` with `1`, `No`
+with `0` and `Not Known` with R's internal `NA` value.
+
+Currently it has 704 lines so I can't tal you through all of it but because this is all open if you want to look at the
+code you can do and I've included the link on this slide.
+:::
+
+
+## Scripts/code - `r/clean.R` (_cont._)
+
+```{.r}
+## Finally save the data
+saveRDS(df, file = paste(r_dir, "clean.rds", sep = "/"))
+```
+
++ [thyroid-cancer-prediction/r/clean.R](https://github.com/ns-rse/thyroid-cancer-prediction/blob/main/r/clean.R)
+
+::: {.notes}
+Finally though we save the `df` data frame in the `r_dir` directory that was defined in the `master.R` script.
+
+I can re-run this at any time if for example there was an error in my code, or more patients have been collected and the
+dataset needs analysing again or conversely if someone withdraws from the study I could add lines to `r/clean.R` to
+remove them from the dataset that is being analysed.
+:::
+
+
+## Version Control
+
++ Keep fine-grained records of changes to code.
++ Regular saves of work.
++ Backup and collaboration via [GitHub][gh] / [GitLab][gl]
++ Organised and consistent system, avoids...
+
+::: {.notes}
+I've mentioned that the files for this work are version controlled, hands up anyone who has heared of Version Control?
+
+Keep your hands up if you've used version control?
+
+Ok, thank you.
+
+Version control has been around for a long time, you may be familiar with editions of books as one example or with
+Wikipedia where the changes and edits that people make are tracked
+
+:::
+
+## Version Control
+
+![](https://www.phdcomics.com/comics/archive/phd101212s.gif)
+
 
 ## Version Control
 
@@ -542,157 +662,90 @@ You can also include images locally.^[Make sure to `git add` them otherwise they
 ::: {.notes}
 :::
 
-## R code
+-->
+
+## Quarto & Data Science Learning Community
 
 :::: {.columns}
 
 ::: {.column width="50%"}
-Include [R code and output](https://quarto.org/docs/computations/r.html) with automatic referencing (see @fig-airquality2)
-
-```{r}
-#| label: fig-airquality
-#| fig-cap: "Temperature and ozone level."
-#| warning: false
-#| eval: false
-#| echo: true
-library(ggplot2)
-
-ggplot(airquality, aes(Temp, Ozone)) +
-  geom_point() +
-  geom_smooth(method = "loess")
-```
-
-:::
-::: {.column width="50%"}
-
-```{r}
-#| label: fig-airquality2
-#| fig-cap: "Temperature and ozone level."
-#| warning: false
-
-library(ggplot2)
-
-ggplot(airquality, aes(Temp, Ozone)) +
-  geom_point() +
-  geom_smooth(method = "loess")
-```
-
-:::
-
-::::
-
-::: {.notes}
-[R](https://www.r-project.org/) code can be embeded and executed to produce tables and figures.
-:::
-
-## Python code
-
-::: {.column width="50%"}
-Include [Python code and output](https://quarto.org/docs/computations/python.html) too
-
-```{.python}
-#| label: fig-polar
-#| fig-cap: "A line plot on a polar axis."
-#| warning: false
-#| eval: false
-#| echo: true
-import numpy as np
-import matplotlib.pyplot as plt
-
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(
-  subplot_kw = {'projection': 'polar'}
-)
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
-```
-
-:::
-::: {.column width="50%"}
-
-```{.python}
-#| label: fig-polar2
-#| fig-cap: "A line plot on a polar axis."
-#| warning: false
-#| eval: true
-#| echo: true
-import numpy as np
-import matplotlib.pyplot as plt
-
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(
-  subplot_kw = {'projection': 'polar'}
-)
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
-```
-
-:::
-::::
-
-::: {.notes}
-You can include [Python](https://www.python.org) code too
-:::
-
-## General code
-
-There are lots of options for showing, hiding, highlighting [code
-blocks](https://quarto.org/docs/presentations/revealjs/#code-blocks).
-
-```{.python code-line-numbers="6-8"}
-#| eval: true
-#| echo: true
-import numpy as np
-import matplotlib.pyplot as plt
-
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
-```
-
-## The Documentation is Good
-
-The official documentation is really good.
+The official documentation is _really_ good.
 
 + [Get Started](https://quarto.org/docs/get-started/)
 + [Markdown Basics](https://quarto.org/docs/authoring/markdown-basics.html)
 + [Guide](https://quarto.org/docs/guide/) with many sections on [Presentations](https://quarto.org/docs/presentations/)
   [Website](https://quarto.org/docs/websites/), [Books](https://quarto.org/docs/books/) and more.
-
-## Extensions
-
-:::: {.columns}
-
-::: {.column width="70%"}
-[Extensions](https://quarto.org/docs/extensions/) for themes and other functionality
-(press `c` whilst viewing these slides :wink: ).
-
-+ [Shortcode/Filter](https://quarto.org/docs/extensions/listing-filters.html)
-+ [Journal Articles](https://quarto.org/docs/extensions/listing-journals.html)
-+ [Custom Formats](https://quarto.org/docs/extensions/listing-formats.html)
-+ [**RevealJS**](https://quarto.org/docs/extensions/listing-revealjs.html)
-+ [awesome-quarto](https://github.com/mcanouil/awesome-quarto) - Quarto tools & examples
-
 :::
-::: {.column width=30%}
-This Template...
-{{< qrcode <https://ns-rse.github.io/quarto-revealjs-template> qr2 width=400 height=400 >}}
+::: {.column width=50%}
+
+
+
+{{< qrcode <https://dslc.io/> qr3 width=400 height=400 >}}
+[Data Science Learning Community (dslc.io)](https://dslc.io/)
 :::
 ::::
 
--->
 
+::: {.notes}
+I think most of the course material you're learning is focused on RMarkdown but everything you learn can be applied to
+Quarto which is really the next iteration or generation of RMarkdown. If you're keen to give it a try then the
+documentation is really good.
+
+Perhaps also of interest when you have questions about things which aren't working as you'd expect or how to do
+something is the execellent [Data Science Learning Community (dslc.io)](https://dslc.io/) (need R4DS community) which is
+a great place to join book clubs to work through things like [R for Data Science (2e)](https://r4ds.hadley.nz/) and over
+50 books clubs or ask questions in their Slack channel.
+:::
+<!-- ## Extensions -->
+
+<!-- :::: {.columns} -->
+
+<!-- ::: {.column width="70%"} -->
+<!-- [Extensions](https://quarto.org/docs/extensions/) for themes and other functionality -->
+<!-- (press `c` whilst viewing these slides :wink: ). -->
+
+<!-- + [Shortcode/Filter](https://quarto.org/docs/extensions/listing-filters.html) -->
+<!-- + [Journal Articles](https://quarto.org/docs/extensions/listing-journals.html) -->
+<!-- + [Custom Formats](https://quarto.org/docs/extensions/listing-formats.html) -->
+<!-- + [**RevealJS**](https://quarto.org/docs/extensions/listing-revealjs.html) -->
+<!-- + [awesome-quarto](https://github.com/mcanouil/awesome-quarto) - Quarto tools & examples -->
+
+<!-- ::: -->
+<!-- ::: {.column width=30%} -->
+<!-- This Template... -->
+<!-- {{< qrcode <https://ns-rse.github.io/quarto-revealjs-template> qr2 width=400 height=400 >}} -->
+<!-- ::: -->
+<!-- :::: -->
+
+## SheffieldR User Group
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[![sheffieldr.github.io](https://sheffieldr.github.io/schedule_slides/img/SheffieldR_hex.png)](https://sheffieldr.github.io)
+:::
+::: {.column width=50%}
+
+{{< qrcode <https://sheffieldr.github.io/> qr2 width=400 height=400 >}}
+[sheffieldr.github.io](https://sheffieldr.github.io)
+
+:::
+::::
+
+::: {.notes}
+If you're interested in learning more about the many wonderful things you can do with R then you might be interested in
+the SheffieldR User Group that meets roughly every month with presentations and talks on different packages and how to
+do different things with R.
+
+Its meant to be diverse, friendly and welcoming to users of all abilities.
+:::
+
+[dplyr]: https://dplyr.tidyverse.org/
 [gh]: https://github.com
-[git]: https://git-scm..com
+[git]: https://git-scm.com
+[gl]: https://gitlab.com
+[lubridate]: https://lubridate.tidyverse.org/
 [quarto]: https://quarto.org
+[r4ds]: https://r4ds.hadley.nz/
 [rmd]: https://bookdown.org/yihui/rmarkdown/
+[tv]: https://www.tidyverse.org/
