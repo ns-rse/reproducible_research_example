@@ -1,6 +1,6 @@
---
+---
 title: "Reproducible Research in Practice"
-# format: revealjs
+#format: revealjs
 author:
   - name: Neil Shephard
     orcid: 0000-0001-8301-6857
@@ -202,6 +202,8 @@ done via the [`renv`]() package. Its not without problems but the situation toda
 + ~80% of data analysis is data cleaning/wrangling data!
 + _Always_ keep a record of changes you make to the data.
 + Separate directories for different data types and script/markdown files.
++ Use consistent filename nomenclature. ^[[Jenny Bryan - How to Name
+  Files](https://www.youtube.com/watch?v=ES1LTlnpLMk)]
 
 ::: {.notes}
 When undertaking research its imperative to keep a copy of the raw data as received. This might be data from sensors
@@ -721,6 +723,7 @@ Demonstration of rendering the website locally.
 :::
 
 
+
 ## Collaboration and The Long Term View
 
 + Code changes over time.
@@ -729,6 +732,7 @@ Demonstration of rendering the website locally.
 + Will the code you run on your computer run on someone elses?
 
 ::: {.notes}
+
 Reproducibility in computing has a very challenging issue as the code you use, in this context the R packages that are
 used to clean the data and produce the tables and slides, are continually evolving and change over time. Normally
 changes are back-wards compatible which means newer versions still run code written under older versions but that isn't
@@ -843,55 +847,26 @@ each time they install and update a package.
 
 + Reproducible Research is a _good thing_.
 + Improves integrity, transparency and quality of research.
-+ Often requires learning a new skill set.
++ Makes sharing work easier.
++ May require learning a new skill set.
 + Sometimes tools and languages you use will change.
 + Its fun though! :wink:
 
-<!--
-## Formatting
-
-Quarto slides are written in [Markdown](https://quarto.org/docs/authoring/markdown-basics.html).
-
-| Markdown Syntax                              | Output                                |
-|:---------------------------------------------|:--------------------------------------|
-| `*italics*`, `**bold**`, `***bolditalics***` | *italics*, **bold**, **bold italics** |
-| `superscript^1^`, `subscript~2~`             | superscript^1^, subscript~2~          |
-| `~~strikethrough~~`                          | ~~strikethrough~~                     |
-| ```code```                                   | `code`                                |
-| `[Quarto](https://quarto.org)`               | [Quarto](https://quarto.org)          |
-
 ::: {.notes}
-Speaker Notes can be added to each slide. **Formatting** can be used here too.
+In summary, reproducible research is a good thing, it improves the integrity, transparency and quality of your research
+and makes sharing it easier.
+
+This may require learning a new skill set but these are useful skills you can take forward in life and use in many
+different areas.
+
+Over time the tools you use will change, when I started working in this manner I used
+[LaTeX](https://www.latex-project.org/) then shifted to [RMarkdown](https://bookdown.org/yihui/rmarkdown/)  and these
+days use [Quarto](https://quarto.org). But once you've understood how these systems work its easy to adapt to new ones.
+
+But overall I personally find working in this manner fun, it very often involves thinking deeply about what you are
+doing because computers only do what you tell them and by writing code to do your analysis you can easily see if, or
+should I say when, you make mistakes and its considerably easier to correct them.
 :::
-
-
-## Embed Images
-
-[Figures](https://quarto.org/docs/authoring/figures.html) can be embeded using a URL and resized.
-
-```markdown
-![Relaxing in the Julian Alps](https://live.staticflickr.com/65535/53144704609_c5e6fa8c77_k.jpg){width=700}
-```
-
-![Relaxing in the Julian Alps](https://live.staticflickr.com/65535/53144704609_c5e6fa8c77_k.jpg){width=700}
-
-::: {.notes}
-:::
-
-## Embed Images (*cont.*)
-
-You can also include images locally.^[Make sure to `git add` them otherwise they won't publish] and make them hyperlinks.
-
-```markdown
-![[OSC Sheffield](https://osc-international.com/osc-sheffield)](img/OSC_Sheffield.png){width=300}
-```
-
-![[OSC Sheffield](https://osc-international.com/osc-sheffield)](img/OSC_Sheffield.png){width=300}
-
-::: {.notes}
-:::
-
--->
 
 ## Quarto & Data Science Learning Community
 
