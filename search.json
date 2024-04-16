@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Reproducible Research in Practice",
+    "section": "",
+    "text": "title: “Reproducible Research in Practice” # format: revealjs author: - name: Neil Shephard orcid: 0000-0001-8301-6857 email: n.shephard@sheffield.ac.uk affiliations: Employers Name from: markdown+emoji format: clean-revealjs: incremental: false slide-number: true show-slide-number: speaker auto-stretch: false chalkboard: true # embed-resources: true # standalone: true header: Reproducible Research in Practice revealjs-plugins: - confetti footer: “Slides : ns-rse.github.io/reproducible_research_example” project: preview: port: 7864 host: localhost watch-inputs: true filters: - openlinksinnewpage - reveal-header"
+  },
+  {
     "objectID": "index.html#scan-this",
     "href": "index.html#scan-this",
     "title": "Reproducible Research in Practice",
@@ -11,35 +18,35 @@
     "href": "index.html#who-am-iwhat-do-i-do",
     "title": "Reproducible Research in Practice",
     "section": "Who Am I/What Do I Do?",
-    "text": "Who Am I/What Do I Do?\n\n\n\nBackground in evolutionary and statistical genetics.\nGenetic Statistician\nMedical Statistician\nData Scientist\n🎉 Research Software Engineer 🎉\n\n\n\nLinux, R, Python, Bash\nLiterate Programming\nReproducible Research\nOpen Research\nFree Open Source Software\n\n\n\n\nBefore we get into the details I thought it might be useful to explain who am I am and why I’m here to talk to you today.\nI started my academic career studying Zoology and Genetics at Undergraduate then moved onto a Masters in Genetic Epidemiology, both here at the University of Sheffield quite a few years ago. After graduating I spent about eight or nine years as a Genetic Statistician trying to work out what genes are involved in complex diseases at various Universities, Manchester, Western Australia and then returning to Sheffield. I then shifted careers to work as a Medical Statistician for about nine years followed by four years in industry as a Data Scientist where I didn’t actually do much data science but did learn a lot about software development which is how I’ve ended up back at the University of Sheffield as a Research Software Engineer.\nA common theme from my Masters on-wards is that I have used computers to write programmes and analyse data. I’ve taught myself Linux system administration and from a rudimentary training on Fortran, C and Stata have gone on to learn Bash, R and Python as well as a few other bits and pieces of different languages.\nVery early on in my career I developed an interest in literate programming and reproducible research which is why Aneta has invited me her today to talk to you and I’ll expand on these topics and show you some work I’m currently engaged in and how I undertake it in a reproducible manner.\nReproducible Research is one of the foundational aspects of Open Research as by ensuring our work is reproducible and open to review it improves confidence in its accuracy and reliability."
+    "text": "Who Am I/What Do I Do?\n\n\n\nBackground\n\nBSc Zoology and Genetics\nMSc Genetic Epidemiology\nGenetic Statistician\nMedical Statistician\nData Scientist\n:tada: Research Software Engineer :tada:\n\n\n\n\nSkills\n\nLinux, R, Python, Bash\nLiterate Programming\nReproducible Research\nOpen Research\nFree Open Source Software\nFAIR Principles\n\n\n\n\n\nBefore we get into the details I thought it might be useful to explain who am I am and why I’m here to talk to you today.\nI started my academic career studying Zoology and Genetics at Undergraduate then moved onto a Masters in Genetic Epidemiology, both here at the University of Sheffield quite a few years ago. After graduating I spent about eight or nine years as a Genetic Statistician trying to work out what genes are involved in complex diseases at various Universities, Manchester, Western Australia and then returning to Sheffield. I then shifted careers to work as a Medical Statistician for about nine years followed by four years in industry as a Data Scientist where I didn’t actually do much data science but did learn a lot about software development which is how I’ve ended up back at the University of Sheffield as a Research Software Engineer.\nA common theme from my Masters on-wards is that I have used computers to write programmes and analyse data. I’ve taught myself Linux system administration and from a rudimentary training on Fortran, C and Stata have gone on to learn Bash, R and Python as well as a few other bits and pieces of different languages.\nVery early on in my career I developed an interest in literate programming and reproducible research which is why Aneta has invited me her today to talk to you and I’ll expand on these topics and show you some work I’m currently engaged in and how I undertake it in a reproducible manner.\nReproducible Research is one of the foundational aspects of Open Research as by ensuring our work is reproducible and open to review it improves confidence in its accuracy and reliability."
   },
   {
     "objectID": "index.html#reproducible-research",
     "href": "index.html#reproducible-research",
     "title": "Reproducible Research in Practice",
     "section": "Reproducible Research",
-    "text": "Reproducible Research\n\nReproducibility is fundamental to the scientific method.\nTraditionally hand-written notebooks with methods shared in publications.\nModern equivalent is code…\n\nSoftware\nStatistical scripts\n\nData cleaning\nAnalysis, graphs & tables\nNumbers and statistics"
+    "text": "Reproducible Research\n\nFundamental to the scientific method.\nTraditionally hand-written notebooks with methods shared in publications.\nModern equivalent is code…\n\nSoftware\nScripts\n\nData cleaning\nAnalysis, graphs & tables\nNumbers and statistics\n\n\n\n\nReproducibility is fundamental to the scientific method, researchers have to record what they have done and what happened in their experiments.\nTraditionally this will have been done by hand in notebooks with methods and results shared in publications but as with many aspects of the modern world they have transitioned to the digital world and the modern equivalent is code. People write software to analyse their data, whether that is a small survey of a few hundred people, or images obtained from Atomic Force Microscopy which is one of the projects I’ve worked on for the past couple of years. Even statistical analysis which involves data cleaning, analyses to produce graphs and tables summarising responses and statistics about a study is still code.\nAll this code needs to be legible and understandable to others, and that includes your future self, as you can guarantee that after leaving code that was written in a hurry for a few weeks or longer when you return to it you will often find it is hard to understand what you were doing or why you wrote a particular piece of code."
   },
   {
     "objectID": "index.html#literate-programming---origins",
     "href": "index.html#literate-programming---origins",
     "title": "Reproducible Research in Practice",
     "section": "Literate Programming - Origins",
-    "text": "Literate Programming - Origins\n\n\n\na computer program is given as an explanation of how it works in a natural language, such as English, interspersed (embedded) with snippets of macros and traditional source code, from which compilable source code can be generated.1\n\n\n\n\n\nLiterate Programming - Donald Knuth\n\n\n\n\n\nRMarkdown and other languages like it such as the newer Quarto and Emacs’ Org-mode are literate programming languages which may be an unfamiliar term so I’ve borrowed the definition from Wikipedia.\nThe idea was originally proposed and developed the computer scientist Donald Knuth, and he literally wrote the book on it.\n\nWikipedia - Literate programming"
+    "text": "Literate Programming - Origins\n\n\n\na computer program is given as an explanation of how it works in a natural language, such as English, interspersed (embedded) with snippets of macros and traditional source code, from which compilable source code can be generated.1\n\n\n\n\n\nLiterate Programming - Donald Knuth\n\n\n\n\n\nThis leads me onto the topic of literate programming and RMarkdown and other languages like it such as the newer Quarto and Emacs’ Org-mode are literate programming languages which may be an unfamiliar term so I’ve borrowed the definition from Wikipedia.\nThe idea was originally proposed and developed the computer scientist Donald Knuth, and he literally wrote the book on it."
   },
   {
     "objectID": "index.html#literate-programming---better-programmes",
     "href": "index.html#literate-programming---better-programmes",
     "title": "Reproducible Research in Practice",
     "section": "Literate Programming - Better Programmes",
-    "text": "Literate Programming - Better Programmes\n\n\n\nMy programs are not only explained better than ever before; they also are better programs, because the new methodology encourages me to do a better job.1\n\n\n\n\n\nLiterate Programming - Donald Knuth\n\n\n\n\n\nWhilst originating in computer science the principle has seen widespread adoption in research and data science because it encourages reproducible research and facilitates open access to research.\nAlso, as Knuth found when he adopted the practice it improved the quality of the programmes he wrote, and I’ve found the same is true when writing documents myself since adopting the practice over 20 years ago.\n\nKnuth (1984)"
+    "text": "Literate Programming - Better Programmes\n\n\n\nMy programs are not only explained better than ever before; they also are better programs, because the new methodology encourages me to do a better job.2\n\n\n\n\n\nLiterate Programming - Donald Knuth\n\n\n\n\n\nWhilst originating in computer science the principle has seen widespread adoption in research and data science because it encourages reproducible research and facilitates open access to research.\nAlso, as Knuth found when he adopted the practice it improved the quality of the programmes he wrote, and I’ve found the same is true when writing documents myself since adopting the practice over 20 years ago."
   },
   {
     "objectID": "index.html#whats-involved",
     "href": "index.html#whats-involved",
     "title": "Reproducible Research in Practice",
     "section": "What’s Involved?",
-    "text": "What’s Involved?\n\nLogical, ordered directory structure.\nScripts/code.\nVersion control of code.\nReproducible environment (R packages using renv).\n\n\nIt can seem overwhelming learning a new paradigm or framework for undertaking work and I’ve often found that people want to get on and do the work rather than take a step back and assess how they are going about it but its well worth taking the time out to review and assess your working practices and see how they can be improved.\nI’m going to walk you through a project that I’ve been working on that is looking to improve the prediction of Thyroid Cancer. Its not my own work, its the topic for a PhD for a clinicial Dr Ovie Edafe who is a specialist in neck cancers and related surgery.\nThere are four broad areas that I’ll cover that hopefully align with the content you have already covered and will be covering in the coming weeks.\nThe first step is having an organised structure to your directories having data organised in a consistent and structured manner makes it considerably easier to work with.\nYou then need to write code or scripts, which are still code, that defines the steps you undertake in cleaning and tidying your data and getting it ready for analysis before another series of scripts are used to run the analysis.\nAll of the code that is written should be version controlled which allos you to track the history of the code and see what changes have been made over time. If a mistake is made it is possible to revert back to a previous state where things did work. Version control and tools such as Git and GitHub make it much easier to collaborate with others on research too.\nOne final step is having a reproducible environment under which your work is undertaken. This means the specific versions of packages that you have used for analysis should be recorded and used again in the future. In R this can be done via the renv package. Its not without problems but the situation today is far better than it used to be."
+    "text": "What’s Involved?\n\nLogical, ordered directory structure.\nScripts/code.\nVersion control of code.\nReproducible environment.\n\n\nIt can seem overwhelming learning a new paradigm or framework for undertaking work. I often found that people want to get on and do the work rather than take a step back and assess how they are going about it but its well worth taking the time out to review and assess your working practices and see how they can be improved.\nI’m going to walk you through a project that I’ve been working on that is looking to improve the prediction of Thyroid Cancer. It’s not my own work, it’s the topic for a PhD for a clinician Dr Ovie Edafe who is a specialist in neck cancers and related surgery.\nThere are four broad areas that I’ll cover that hopefully align with the content you have already covered or will be covering in the coming weeks.\nThe first step is having an organised structure to your directories having data organised in a consistent and structured manner makes it considerably easier to work with.\nYou then need to write code or scripts, which are still code, that defines the steps you undertake in cleaning and tidying your data and getting it ready for analysis before another series of scripts are used to run the analysis.\nAll of the code that is written should be version controlled which allos you to track the history of the code and see what changes have been made over time. If a mistake is made it is possible to revert back to a previous state where things did work. Version control and tools such as Git and GitHub make it much easier to collaborate with others on research too.\nOne final step is having a reproducible environment under which your work is undertaken. This means the specific versions of packages that you have used for analysis should be recorded and used again in the future. In R this can be done via the renv package. Its not without problems but the situation today is far better than it used to be."
   },
   {
     "objectID": "index.html#directory-structure",
@@ -112,6 +119,13 @@
     "text": "Scripts/code - r/clean.R (cont.)\n## Finally save the data\nsaveRDS(df, file = paste(r_dir, \"clean.rds\", sep = \"/\"))\n\nthyroid-cancer-prediction/r/clean.R\n\n\nFinally though we save the df data frame in the r_dir directory that was defined in the master.R script.\nI can re-run this at any time if for example there was an error in my code, or more patients have been collected and the dataset needs analysing again or conversely if someone withdraws from the study I could add lines to r/clean.R to remove them from the dataset that is being analysed."
   },
   {
+    "objectID": "index.html#quarto",
+    "href": "index.html#quarto",
+    "title": "Reproducible Research in Practice",
+    "section": "Quarto",
+    "text": "Quarto\n\nCleaned data used by code in docs/*.qmd\nWebsite summarising the work and modelling.\n\n\nThat is a quick run-through of the code used for cleaning the data but I’ve not shown you any actual summaries yet because that is all done in the Quarto markdown language and the work for that resides in the docs/ directory in files ending in .qmd.\nI won’t cover how to set this up as you will be learning how to do this with RMarkdown but there are a number of pages and each has its own file.\nEach of these files has Markdown and code chunks and we’ll take a look at these now.\nSee thyroid-cancer-prediction/docs for examples and walk through.\nDemonstration of rendering these locally, maybe even publish!"
+  },
+  {
     "objectID": "index.html#version-control",
     "href": "index.html#version-control",
     "title": "Reproducible Research in Practice",
@@ -130,20 +144,76 @@
     "href": "index.html#version-control-2",
     "title": "Reproducible Research in Practice",
     "section": "Version Control",
-    "text": "Version Control\nTwo repositories on GitHub\n\nns-rse/thyroid-cancer-prediction - repository I started to show colleague how to use Git and R.\nmdp21oe/multicenter-thyroid - repository by Ovie to re-write his paper in Quarto Markdown."
+    "text": "Version Control\nTwo repositories on GitHub\n\nns-rse/thyroid-cancer-prediction - repository I started to show colleague how to use Git and R.\nmdp21oe/multicenter-thyroid - repository by Ovie to re-write his paper in Quarto Markdown.\n\n\nFor this work we’ve established two Git repositories which are backed up and shared on GitHub, the first I setup when I started the project to document work and I’ve run you through the structure of that.\nThe second is because my collaborator, Ovie, wanted to re-write a paper he had written in Word to publish the analysis he had undertaken in SPSS in a more reproducible manner."
+  },
+  {
+    "objectID": "index.html#thyroid-cancer-prediction",
+    "href": "index.html#thyroid-cancer-prediction",
+    "title": "Reproducible Research in Practice",
+    "section": "thyroid-cancer-prediction",
+    "text": "thyroid-cancer-prediction\n\nns-rse/thyroid-cancer-prediction\nUnderstand the data and the work required\n\nVersion controlled.\nLiterate (tables, graphs and numbers direct from data).\nUses BibTeX to include & format citations.\nRenders to HTML.\nHosted on GitHub Pages"
+  },
+  {
+    "objectID": "index.html#multicenter-thyroid",
+    "href": "index.html#multicenter-thyroid",
+    "title": "Reproducible Research in Practice",
+    "section": "multicenter-thyroid",
+    "text": "multicenter-thyroid\n\nmdp21oe/multicentre_thyroid\nRe-write of draft in Quarto.\n\nVersion controlled.\nLiterate (tables, graphs and numbers direct from data).\nUses BibTeX to include & format citations.\nRenders to HTML.\nGenerate PDF or Word documents.\n\n\n\nThis repository contains the work Ovie has undertaken to re-do his analysis and re-write his paper which had been drafted using Quarto.\nIn undertaking this the work is version controlled, literate in so much as tables, graphs and numbers in the text are derived directly from the data rather than being retyped into a Word or Google document which is highly error prone. It leverages BibTeX. The document renders to HTML and could easily be published as a website via GitHub pages if we wanted to, but as you can see in this example it provides simple buttons in the preview to make PDF or Word documents."
+  },
+  {
+    "objectID": "index.html#multicenter-thyroid-cont.",
+    "href": "index.html#multicenter-thyroid-cont.",
+    "title": "Reproducible Research in Practice",
+    "section": "multicenter-thyroid (cont.)",
+    "text": "multicenter-thyroid (cont.)\n\nOvie has said..\n\n\nIt really makes you think about what numbers, statistics you are calculating and the tables and graphs you are including at each step and ensures they are what you want or mean them to be. It’s much better than pointing and clicking in SPSS.\n\n\nOvie has found this approach to be really useful and has said…\nWhen you take the time to slow down, think about and understand what you are doing it often gives a deeper understanding to the work you are undertaking instead of doing things by rote because you were taught that to get a p-value for a t-test you point-and-click here, there and there.\nDemonstration of rendering the website locally."
+  },
+  {
+    "objectID": "index.html#collaboration-and-the-long-term-view",
+    "href": "index.html#collaboration-and-the-long-term-view",
+    "title": "Reproducible Research in Practice",
+    "section": "Collaboration and The Long Term View",
+    "text": "Collaboration and The Long Term View\n\nCode changes over time.\nIncluding packages you use in R.\nWill the code you run today run in 6 months, a year, or five years?\nWill the code you run on your computer run on someone elses?\n\n\nReproducibility in computing has a very challenging issue as the code you use, in this context the R packages that are used to clean the data and produce the tables and slides, are continually evolving and change over time. Normally changes are back-wards compatible which means newer versions still run code written under older versions but that isn’t always the case and sometimes there are breaking changes.\nHow can you ensure that the code you run today will run in 6 months, a year or five years time?\nAnother challenge which can compound this is that different operating systems often have subtle differences in terms of the answers that they give or the packages that are available for them.\nThere are however some ways to deal with this problem."
+  },
+  {
+    "objectID": "index.html#renv-to-the-rescue",
+    "href": "index.html#renv-to-the-rescue",
+    "title": "Reproducible Research in Practice",
+    "section": "renv to the rescue",
+    "text": "renv to the rescue\n\n{renv} package helps with this.\nCreates a “Virtual Environment” and installs packages there in the renv/ directory.\nRecords what versions of each package are used in renv.lock file.\nStarting R in this directory reloads these libraries\n\n\nThe solution to this is a R package called {renv} which is used for creating and managing virtual environments.\nInstalls packages within the renv/ directory and when you start R loads them from there.\nKeeps a record of packages and versions in the renv.lock file and when R starts it tries to load these packages. If you’re on a new system that doesn’t have these installed it will install them."
+  },
+  {
+    "objectID": "index.html#renv.lock",
+    "href": "index.html#renv.lock",
+    "title": "Reproducible Research in Practice",
+    "section": "renv.lock",
+    "text": "renv.lock\n{\n  \"R\": {\n    \"Version\": \"4.3.2\",\n    \"Repositories\": [\n      {\n        \"Name\": \"RStudio\",\n        \"URL\": \"https://cran.rstudio.com\"\n      }\n    ]\n  },\n    ...\n    \"dplyr\": {\n      \"Package\": \"dplyr\",\n      \"Version\": \"1.1.4\",\n      \"Source\": \"Repository\",\n      \"Repository\": \"CRAN\",\n      \"Requirements\": [\n        \"R\",\n        \"R6\",\n        \"cli\",\n        \"generics\",\n        \"glue\",\n        \"lifecycle\",\n        \"magrittr\",\n        \"methods\",\n        \"pillar\",\n        \"rlang\",\n        \"tibble\",\n        \"tidyselect\",\n        \"utils\",\n        \"vctrs\"\n      ],\n      \"Hash\": \"fedd9d00c2944ff00a0e2696ccf048ec\"\n    },\n    ...\n    \"ggplot2\": {\n      \"Package\": \"ggplot2\",\n      \"Version\": \"3.5.0\",\n      \"Source\": \"Repository\",\n      \"Repository\": \"CRAN\",\n      \"Requirements\": [\n        \"MASS\",\n        \"R\",\n        \"cli\",\n        \"glue\",\n        \"grDevices\",\n        \"grid\",\n        \"gtable\",\n        \"isoband\",\n        \"lifecycle\",\n        \"mgcv\",\n        \"rlang\",\n        \"scales\",\n        \"stats\",\n        \"tibble\",\n        \"vctrs\",\n        \"withr\"\n      ],\n      \"Hash\": \"52ef83f93f74833007f193b2d4c159a2\"\n    },\n    ...\n}\n\nIt’s not that interesting to look at but this is an example of sections from a renv.lock file.\nIt’s in a format called JavaScript Object Notation or JSON for short.\nAt the top is the version of R that is used and that is followed by sections which indicate the versions of each package, the repository from whihc it was installed and its requirements along with a “hash” which is a unique way of verifying the integrity of the package. Such hashes are used all over the place and your mobile phones will use them each time they install and update a package."
+  },
+  {
+    "objectID": "index.html#summary",
+    "href": "index.html#summary",
+    "title": "Reproducible Research in Practice",
+    "section": "Summary",
+    "text": "Summary\n\nReproducible Research is a good thing.\nImproves integrity, transparency and quality of research.\nOften requires learning a new skill set.\nSometimes tools and languages you use will change.\nIts fun though! :wink:"
   },
   {
     "objectID": "index.html#quarto-data-science-learning-community",
     "href": "index.html#quarto-data-science-learning-community",
     "title": "Reproducible Research in Practice",
     "section": "Quarto & Data Science Learning Community",
-    "text": "Quarto & Data Science Learning Community\n\n\nThe official documentation is really good.\n\nGet Started\nMarkdown Basics\nGuide with many sections on Presentations Website, Books and more.\n\n\n\n\n    \nData Science Learning Community (dslc.io)\n\n\n\nI think most of the course material you’re learning is focused on RMarkdown but everything you learn can be applied to Quarto which is really the next iteration or generation of RMarkdown. If you’re keen to give it a try then the documentation is really good.\nPerhaps also of interest when you have questions about things which aren’t working as you’d expect or how to do something is the execellent Data Science Learning Community (dslc.io) (need R4DS community) which is a great place to join book clubs to work through things like R for Data Science (2e) and over 50 books clubs or ask questions in their Slack channel."
+    "text": "Quarto & Data Science Learning Community\n\n\nThe official Quarto documentation is really good.\n\nGet Started\nMarkdown Basics\nGuide with many sections on Presentations, Website, Books and more.\n\n\n\n\n    \nData Science Learning Community (dslc.io)\n\n\n\nI think most of the course material you’re learning is focused on RMarkdown but everything you learn can be applied to Quarto which is really the next iteration or generation of RMarkdown. If you’re keen to give it a try then the documentation is really good.\nPerhaps also of interest when you have questions about things which aren’t working as you’d expect or how to do something is the execellent Data Science Learning Community (dslc.io) (need R4DS community) which is a great place to join book clubs to work through things like R for Data Science (2e) and over 50 books clubs or ask questions in their Slack channel."
   },
   {
     "objectID": "index.html#sheffieldr-user-group",
     "href": "index.html#sheffieldr-user-group",
     "title": "Reproducible Research in Practice",
     "section": "SheffieldR User Group",
-    "text": "SheffieldR User Group\n\n\n\n\n\nsheffieldr.github.io\n\n\n\n\n\n    \nsheffieldr.github.io\n\n\n\nIf you’re interested in learning more about the many wonderful things you can do with R then you might be interested in the SheffieldR User Group that meets roughly every month with presentations and talks on different packages and how to do different things with R.\nIts meant to be diverse, friendly and welcoming to users of all abilities.\n\n\n\n\nSlides : ns-rse.github.io/reproducible_research_example\n\n\n\n\n\n\n\n \n\n\nReproducible Research in Practice"
+    "text": "SheffieldR User Group\n\n\n\n\n\nsheffieldr.github.io\n\n\n\n\n\n    \nsheffieldr.github.io\n\n\n\nIf you’re interested in learning more about the many wonderful things you can do with R then you might be interested in the SheffieldR User Group that meets roughly every month with presentations and talks on different packages and how to do different things with R.\nIts meant to be diverse, friendly and welcoming to users of all abilities."
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "Reproducible Research in Practice",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nWikipedia - Literate programming↩︎\nKnuth (1984)↩︎"
   }
 ]
