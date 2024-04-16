@@ -1,4 +1,4 @@
----
+--
 title: "Reproducible Research in Practice"
 # format: revealjs
 author:
@@ -42,7 +42,10 @@ filters:
 
 ::: {.column width="50%"}
 
-+ Background in evolutionary and statistical genetics.
+### Background
+
++ BSc Zoology and Genetics
++ MSc Genetic Epidemiology
 + Genetic Statistician
 + Medical Statistician
 + Data Scientist
@@ -52,11 +55,14 @@ filters:
 
 ::: {.column width="50%"}
 
+### Skills
+
 + Linux, R, Python, Bash
 + Literate Programming
 + Reproducible Research
 + Open Research
 + Free Open Source Software
++ FAIR Principles
 
 :::
 ::::
@@ -88,15 +94,30 @@ open to review it improves confidence in its accuracy and reliability.
 
 ## Reproducible Research
 
-+ Reproducibility is fundamental to the scientific method.
++ Fundamental to the scientific method.
 + Traditionally hand-written notebooks with methods shared in publications.
 + Modern equivalent is code...
   + Software
-  + Statistical scripts
+  + Scripts
     + Data cleaning
     + Analysis, graphs & tables
     + Numbers and statistics
 
+::: {.notes}
+Reproducibility is fundamental to the scientific method, researchers have to record what they have done and what
+happened in their experiments.
+
+Traditionally this will have been done by hand in notebooks with methods and results shared in publications but as with
+many aspects of the modern world they have transitioned to the digital world and the modern equivalent is code. People
+write software to analyse their data, whether that is a small survey of a few hundred people, or images obtained from
+Atomic Force Microscopy which is one of the projects I've worked on for the past couple of years. Even statistical
+analysis which involves data cleaning, analyses to produce graphs and tables summarising responses and statistics about
+a study is still code.
+
+All this code needs to be legible and understandable to others, and that includes your future self, as you can guarantee
+that after leaving code that was written in a hurry for a few weeks or longer when you return to it you will often find
+it is hard to understand what you were doing or why you wrote a particular piece of code.
+:::
 
 ## Literate Programming - Origins
 
@@ -112,9 +133,9 @@ generated.^[[Wikipedia - Literate programming](https://en.wikipedia.org/wiki/Lit
 ::::
 
 ::: {.notes}
-RMarkdown and other languages like it such as the newer [Quarto][quarto] and Emacs'
-[Org-mode](https://orgmode.org) are literate programming languages which may be an unfamiliar term so I've borrowed the
-definition from Wikipedia.
+This leads me onto the topic of literate programming and RMarkdown and other languages like it such as the newer
+[Quarto][quarto] and Emacs' [Org-mode](https://orgmode.org) are literate programming languages which may be an
+unfamiliar term so I've borrowed the definition from Wikipedia.
 
 The idea was originally proposed and developed the computer scientist Donald Knuth, and he literally wrote the book on it.
 :::
@@ -144,18 +165,18 @@ the same is true when writing documents myself since adopting the practice over 
 + Logical, ordered directory structure.
 + Scripts/code.
 + Version control of code.
-+ Reproducible environment (R packages using [renv](https://rstudio.github.io/renv/articles/renv.html)).
++ Reproducible environment.
 
 ::: {.notes}
-It can seem overwhelming learning a new paradigm or framework for undertaking work and I've often found that people want
-to get on and do the work rather than take a step back and assess how they are going about it but its well worth taking
-the time out to review and assess your working practices and see how they can be improved.
+It can seem overwhelming learning a new paradigm or framework for undertaking work. I often found that people want to
+get on and do the work rather than take a step back and assess how they are going about it but its well worth taking the
+time out to review and assess your working practices and see how they can be improved.
 
 I'm going to walk you through a project that I've been working on that is looking to improve the prediction of Thyroid
-Cancer. Its not my own work, its the topic for a PhD for a clinicial Dr Ovie Edafe who is a specialist in neck cancers
+Cancer. It's not my own work, it's the topic for a PhD for a clinician Dr Ovie Edafe who is a specialist in neck cancers
 and related surgery.
 
-There are four broad areas that I'll cover that hopefully align with the content you have already covered and will be
+There are four broad areas that I'll cover that hopefully align with the content you have already covered or will be
 covering in the coming weeks.
 
 The first step is having an organised structure to your directories having data organised in a consistent and structured
@@ -310,7 +331,7 @@ models to the data in the `.RData` files.
 
 
 
-## Directory Structure - `docs/`
+## Directory Structure - `docs/`  {.scrollable}
 
 
 ```
@@ -378,7 +399,7 @@ questions about this aspect?
 :::
 
 
-## Scripts/Code - `master.R`
+## Scripts/Code - `master.R`  {.scrollable}
 
 ```{.r}
 ## Filename    : master.R
@@ -427,7 +448,7 @@ first called, followed by the `simulate_data.R` and then the `tidymodels.R`.
 
 :::
 
-## Scripts/code - `r/clean.R`
+## Scripts/code - `r/clean.R`  {.scrollable}
 
 ```{.r}
 ## Filename : clean.R
@@ -518,7 +539,7 @@ This vastly improves the readability of the code.
 :::
 
 
-## Scripts/code - `r/clean.R` (_cont._)
+## Scripts/code - `r/clean.R` (_cont._)  {.scrollable}
 
 ```{.r}
 
@@ -584,6 +605,27 @@ dataset needs analysing again or conversely if someone withdraws from the study 
 remove them from the dataset that is being analysed.
 :::
 
+## Quarto
+
++ Cleaned data used by code in `docs/*.qmd`
++ [Website](https://blog.nshephard.dev/thyroid-cancer-prediction/) summarising the work and modelling.
+
+
+::: {.notes}
+That is a quick run-through of the code used for cleaning the data but I've not shown you any actual summaries yet
+because that is all done in the [Quarto](https://quarto.org) markdown language and the work for that resides in the
+`docs/` directory in files ending in `.qmd`.
+
+I won't cover how to set this up as you will be learning how to do this with RMarkdown but there are a number of pages
+and each has its own file.
+
+Each of these files has Markdown and code chunks and we'll take a look at these now.
+
+See [thyroid-cancer-prediction/docs](https://github.com/ns-rse/thyroid-cancer-prediction/tree/main/docs) for examples
+and walk through.
+
+Demonstration of rendering these locally, maybe even publish!
+:::
 
 ## Version Control
 
@@ -604,7 +646,7 @@ Wikipedia where the changes and edits that people make are tracked
 
 :::
 
-## Version Control
+## Version Control {.scrollable}
 
 ![](https://www.phdcomics.com/comics/archive/phd101212s.gif)
 
@@ -617,6 +659,193 @@ Two repositories on [GitHub][gh]
   colleague how to use Git and R.
 + [mdp21oe/multicenter-thyroid](https://github.com/mdp21oe/multicentre_thyroid) - repository by Ovie to re-write his
   paper in Quarto Markdown.
+
+::: {.notes}
+For this work we've established two Git repositories which are backed up and shared on GitHub, the first I setup when I
+started the project to document work and I've run you through the structure of that.
+
+The second is because my collaborator, Ovie, wanted to re-write a paper he had written in Word to publish the analysis
+he had undertaken in SPSS in a more reproducible manner.
+:::
+
+## `thyroid-cancer-prediction`
+
++ [ns-rse/thyroid-cancer-prediction](https://github.com/ns-rse/thyroid-cancer-prediction)
++ Understand the data and the work required
+  + Version controlled.
+  + Literate (tables, graphs and numbers direct from data).
+  + Uses [BibTeX][bibtex] to include & format citations.
+  + Renders to HTML.
+  + Hosted on [GitHub Pages](https://blog.nshephard.dev/thyroid-cancer-prediction/)
+
+## `multicenter-thyroid`
+
++ [mdp21oe/multicentre_thyroid](https://github.com/mdp21oe/multicentre_thyroid/)
++ Re-write of draft in Quarto.
+  + Version controlled.
+  + Literate (tables, graphs and numbers direct from data).
+  + Uses [BibTeX][bibtex] to include & format citations.
+  + Renders to HTML.
+  + Generate PDF or Word documents.
+
+::: {.notes}
+
+This repository contains the work Ovie has undertaken to re-do his analysis and re-write his paper which had been
+drafted using Quarto.
+
+In undertaking this the work is version controlled, literate in so much as tables, graphs and numbers in the text are
+derived directly from the data rather than being retyped into a Word or Google document which is highly error prone. It
+leverages [BibTeX][bibtex]. The document renders to HTML and could easily be published as a website via GitHub pages if
+we wanted to, but as you can see in this example it provides simple buttons in the preview to make PDF or Word
+documents.
+
+:::
+
+## `multicenter-thyroid` (_cont._)
+
++ Ovie has said..
+
+> It really makes you think about what numbers, statistics you are calculating and the tables and graphs you are
+> including at each step and ensures they are what you want or mean them to be. It's much better than pointing and
+> clicking in SPSS.
+
+::: {.notes}
+
+Ovie has found this approach to be really useful and has said...
+
+When you take the time to slow down, think about and understand what you are doing it often gives a deeper understanding
+to the work you are undertaking instead of doing things by rote because you were taught that to get a p-value for a
+t-test you point-and-click here, there and there.
+
+Demonstration of rendering the website locally.
+:::
+
+
+## Collaboration and The Long Term View
+
++ Code changes over time.
++ Including packages you use in R.
++ Will the code you run today run in 6 months, a year, or five years?
++ Will the code you run on your computer run on someone elses?
+
+::: {.notes}
+Reproducibility in computing has a very challenging issue as the code you use, in this context the R packages that are
+used to clean the data and produce the tables and slides, are continually evolving and change over time. Normally
+changes are back-wards compatible which means newer versions still run code written under older versions but that isn't
+always the case and sometimes there _are_ breaking changes.
+
+How can you ensure that the code you run today will run in 6 months, a year or five years time?
+
+Another challenge which can compound this is that different operating systems often have subtle differences in terms of
+the answers that they give or the packages that are available for them.
+
+There are however some ways to deal with this problem.
+:::
+
+## `renv` to the rescue
+
++ [`{renv}`](https://rstudio.github.io/renv/articles/renv.html) package helps with this.
++ Creates a "Virtual Environment" and installs packages there in the `renv/` directory.
++ Records what versions of each package are used in `renv.lock` file.
++ Starting R in this directory reloads these libraries
+
+
+::: {.notes}
+The solution to this is a R package called [`{renv}`](https://rstudio.github.io/renv/articles/renv.html) which is used
+for creating and managing virtual environments.
+
+Installs packages within the `renv/` directory and when you start R loads them from there.
+
+Keeps a record of packages and versions in the `renv.lock` file and when R starts it tries to load these packages. If
+you're on a new system that doesn't have these installed it will install them.
+:::
+
+
+## `renv.lock`
+
+``` yaml
+{
+  "R": {
+    "Version": "4.3.2",
+    "Repositories": [
+      {
+        "Name": "RStudio",
+        "URL": "https://cran.rstudio.com"
+      }
+    ]
+  },
+    ...
+    "dplyr": {
+      "Package": "dplyr",
+      "Version": "1.1.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "R6",
+        "cli",
+        "generics",
+        "glue",
+        "lifecycle",
+        "magrittr",
+        "methods",
+        "pillar",
+        "rlang",
+        "tibble",
+        "tidyselect",
+        "utils",
+        "vctrs"
+      ],
+      "Hash": "fedd9d00c2944ff00a0e2696ccf048ec"
+    },
+    ...
+    "ggplot2": {
+      "Package": "ggplot2",
+      "Version": "3.5.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "MASS",
+        "R",
+        "cli",
+        "glue",
+        "grDevices",
+        "grid",
+        "gtable",
+        "isoband",
+        "lifecycle",
+        "mgcv",
+        "rlang",
+        "scales",
+        "stats",
+        "tibble",
+        "vctrs",
+        "withr"
+      ],
+      "Hash": "52ef83f93f74833007f193b2d4c159a2"
+    },
+    ...
+}
+```
+
+::: {.notes}
+It's not that interesting to look at but this is an example of sections from a `renv.lock` file.
+
+It's in a format called JavaScript Object Notation or [JSON](https://www.json.org/json-en.html) for short.
+
+At the top is the version of R that is used and that is followed by sections which indicate the versions of each
+package, the repository from whihc it was installed and its requirements along with a "hash" which is a unique way of
+verifying the integrity of the package. Such hashes are used all over the place and your mobile phones will use them
+each time they install and update a package.
+:::
+
+## Summary
+
++ Reproducible Research is a _good thing_.
++ Improves integrity, transparency and quality of research.
++ Often requires learning a new skill set.
++ Sometimes tools and languages you use will change.
++ Its fun though! :wink:
 
 <!--
 ## Formatting
@@ -669,11 +898,11 @@ You can also include images locally.^[Make sure to `git add` them otherwise they
 :::: {.columns}
 
 ::: {.column width="50%"}
-The official documentation is _really_ good.
+The official Quarto documentation is _really_ good.
 
 + [Get Started](https://quarto.org/docs/get-started/)
 + [Markdown Basics](https://quarto.org/docs/authoring/markdown-basics.html)
-+ [Guide](https://quarto.org/docs/guide/) with many sections on [Presentations](https://quarto.org/docs/presentations/)
++ [Guide](https://quarto.org/docs/guide/) with many sections on [Presentations](https://quarto.org/docs/presentations/),
   [Website](https://quarto.org/docs/websites/), [Books](https://quarto.org/docs/books/) and more.
 :::
 ::: {.column width=50%}
@@ -740,6 +969,7 @@ do different things with R.
 Its meant to be diverse, friendly and welcoming to users of all abilities.
 :::
 
+[bibtex]: https://www.bibtex.org/
 [dplyr]: https://dplyr.tidyverse.org/
 [gh]: https://github.com
 [git]: https://git-scm.com
