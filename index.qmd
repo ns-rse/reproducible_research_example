@@ -5,7 +5,7 @@ author:
   - name: Neil Shephard
     orcid: 0000-0001-8301-6857
     email: n.shephard@sheffield.ac.uk
-    affiliations: Employers Name
+    affiliations: Research Software Engineer, Department of Computer Science, University of Sheffield
 from: markdown+emoji
 format:
   clean-revealjs:
