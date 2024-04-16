@@ -1,0 +1,7 @@
+project:
+  type: website
+
+website:
+  title: "Reproducible Research in Practice"
+  site-url: https://ns-rse.github.io/reproducible_research_example
+  description: "Short talk on Reproducible Research in Practice"
